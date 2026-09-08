@@ -287,7 +287,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (input) {
       input.addEventListener('input', function () {
         var err = f.querySelector('.nl-error');
-        if (err) { err.textContent = ''; err.style.display = 'none'; }
+        if (err) {
+          err.classList.add('hidden');
+          err.style.display = 'none';
+        }
+        input.classList.remove('nl-input-error');
       });
     }
   });
@@ -332,31 +336,64 @@ function handleNewsletter(event) {
   var value = (input.value || '').trim();
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var error = form.querySelector('.nl-error');
+  var success = form.querySelector('#newsletterSuccess') || (form.parentElement && form.parentElement.querySelector('#newsletterSuccess'));
 
   if (!error) {
     error = document.createElement('p');
-    error.className = 'nl-error block w-full text-[11px] text-red-400 font-mono'
-      + (form.classList.contains('space-y-2') ? ' mt-1.5' : ' mt-2 text-left');
-    form.appendChild(error);
+    error.className = 'nl-error hidden text-xs text-rose-400 mt-2 font-mono flex items-center gap-1.5'
+      + (form.classList.contains('text-center') || form.classList.contains('justify-center') ? ' justify-center' : '');
+    error.innerHTML = '<svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="nl-error-text"></span>';
+    var box = input.closest('.flex') || input.parentElement;
+    if (box && box !== form && box.parentElement === form) {
+      box.insertAdjacentElement('afterend', error);
+    } else {
+      form.appendChild(error);
+    }
+  }
+
+  var textSpan = error.querySelector('.nl-error-text');
+
+  function showNlError(message) {
+    if (textSpan) {
+      textSpan.textContent = message;
+    } else {
+      error.textContent = message;
+    }
+    error.classList.remove('hidden');
+    error.style.display = 'flex';
+    input.classList.add('nl-input-error');
+    if (success) {
+      success.classList.add('hidden');
+      success.style.display = 'none';
+    }
+    input.focus();
   }
 
   if (!value) {
-    input.focus();
-    error.textContent = 'Email is required.';
-    error.style.display = '';
+    showNlError('Email is required.');
     return;
   }
 
   if (!emailRe.test(value)) {
-    input.focus();
-    error.textContent = 'Please enter a valid email address.';
-    error.style.display = '';
+    showNlError('Please enter a valid email address.');
     return;
   }
 
-  error.textContent = '';
+  // Clear error states
+  error.classList.add('hidden');
   error.style.display = 'none';
-  window.location.href = '404.html';
+  input.classList.remove('nl-input-error');
+
+  if (success) {
+    success.classList.remove('hidden');
+    success.style.display = 'block';
+    input.value = '';
+    setTimeout(function () {
+      window.location.href = '404.html';
+    }, 1500);
+  } else {
+    window.location.href = '404.html';
+  }
 }
 
 // Interactive helper buttons
@@ -505,17 +542,50 @@ function downloadReport(title) {
 }
 
 // Contact page form submission handling
+function sanitizePhone(input) {
+  input.value = input.value.replace(/[^0-9+\s()-]/g, '');
+}
+
 function handleContactSubmit(event) {
   event.preventDefault();
   const form = document.getElementById('contactForm');
-  const successState = document.getElementById('contactFormSuccess');
+  if (!form) return;
 
-  if (form && successState) {
-    form.classList.add('hidden');
-    successState.classList.remove('hidden');
+  const name = document.getElementById('contactName');
+  const email = document.getElementById('contactEmail');
+  const phone = document.getElementById('contactPhone');
+  const subject = document.getElementById('contactSubject');
+  const message = document.getElementById('contactMessage');
+
+  const emailVal = ((email && email.value) || '').trim();
+  const emailMsg = !emailVal ? 'Email is required.' : (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal) ? '' : 'Enter a valid email address.');
+
+  const errors = {
+    contactName: (name && name.value.trim()) ? '' : 'Full Name is required.',
+    contactEmail: emailMsg,
+    contactPhone: (phone && phone.value.trim()) ? '' : 'Phone Number is required.',
+    contactSubject: (subject && subject.value) ? '' : 'Please select a subject.',
+    contactMessage: (message && message.value.trim()) ? '' : 'Message is required.'
+  };
+
+  let allValid = true;
+  Object.keys(errors).forEach(function (id) {
+    const errorEl = document.getElementById(id + 'Error');
+    const msg = errors[id];
+    if (errorEl) {
+      errorEl.classList.toggle('hidden', !msg);
+      const text = errorEl.querySelector('.field-error-text');
+      if (text) text.textContent = msg;
+    }
+    if (msg) allValid = false;
+  });
+
+  if (!allValid) {
+    showToast('Please fill in all required details.');
+    return;
   }
 
-  showToast('Inquiry received. A senior partner will respond within 24 hours.');
+  window.location.href = '404.html';
 }
 
 function resetContactForm() {
