@@ -553,6 +553,7 @@ function handleContactSubmit(event) {
 
   const name = document.getElementById('contactName');
   const email = document.getElementById('contactEmail');
+  const company = document.getElementById('contactCompany');
   const phone = document.getElementById('contactPhone');
   const subject = document.getElementById('contactSubject');
   const message = document.getElementById('contactMessage');
@@ -563,6 +564,7 @@ function handleContactSubmit(event) {
   const errors = {
     contactName: (name && name.value.trim()) ? '' : 'Full Name is required.',
     contactEmail: emailMsg,
+    contactCompany: (company && company.value.trim()) ? '' : 'Company Name is required.',
     contactPhone: (phone && phone.value.trim()) ? '' : 'Phone Number is required.',
     contactSubject: (subject && subject.value) ? '' : 'Please select a subject.',
     contactMessage: (message && message.value.trim()) ? '' : 'Message is required.'
