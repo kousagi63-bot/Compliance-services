@@ -818,61 +818,55 @@
   </footer>
 
   <!-- CONSULTATION MODAL -->
-  <div id="consultModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-    <div class="relative bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 shadow-2xl text-left animate-fade-in my-auto">
-      <button onclick="closeConsultModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+  <div id="consultModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm overflow-y-auto flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#0c101d] border border-slate-800 rounded-2xl max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 shadow-2xl relative text-left my-auto">
+      <button onclick="closeConsultModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
       <div class="mb-6">
-        <span class="font-mono text-xs text-primary-purple tracking-widest uppercase">Advisory Intake</span>
-        <h3 id="modalTitle" class="font-serif text-2xl text-white font-normal mt-1">Schedule a Consultation</h3>
-        <p class="text-xs text-slate-400 mt-1">Speak directly with a managing partner. No sales representatives.</p>
+        <p class="font-mono text-xs text-equator tracking-widest uppercase mb-1">CONNECT WITH AN ADVISOR</p>
+        <h3 id="modalTitle" class="font-serif text-2xl text-white font-medium">Schedule a Consultation</h3>
+        <p class="text-xs text-slate-400 mt-1">Discuss your obligations with a credentialed regulatory partner.</p>
       </div>
 
-      <!-- Modal Form -->
       <form id="consultForm" onsubmit="handleConsultSubmit(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Your Full Name</label>
-          <input type="text" required placeholder="Jane Doe" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
+          <label class="block text-xs font-mono text-slate-400 mb-1">Full Name</label>
+          <input type="text" required placeholder="e.g. Eleanor Vance" class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator" />
         </div>
+
         <div>
-          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Work Email</label>
-          <input type="email" required placeholder="jane@enterprise.com" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
+          <label class="block text-xs font-mono text-slate-400 mb-1">Work Email</label>
+          <input type="email" required placeholder="name@company.com" class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator" />
         </div>
+
         <div>
-          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Company / Organization</label>
-          <input type="text" required placeholder="Acme Financial Corp" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
-        </div>
-        <div>
-          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Primary Area of Concern</label>
-          <select required class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple">
-            <option value="" disabled selected>Select an area of concern</option>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Primary Area of Interest</label>
+          <select required class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-equator">
+            <option value="" disabled selected>Select an area of interest</option>
             <option>Data Privacy & GDPR</option>
-            <option>SOX Compliance & Internal Controls</option>
-            <option>HIPAA & Healthcare Data</option>
-            <option>SOC 2 & Cloud Security Architecture</option>
-            <option>AI Governance & EU AI Act</option>
-            <option>Full Regulatory Readiness Audit</option>
+            <option>SOX Compliance</option>
+            <option>HIPAA Compliance</option>
+            <option>EU AI Act & Emerging Tech</option>
+            <option>DORA & Third-Party Risk</option>
+            <option>Full Enterprise Control Environment</option>
           </select>
         </div>
+
         <div>
-          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Brief Overview / Timeline</label>
-          <textarea rows="3" required placeholder="Upcoming audit deadline, regulatory notice, or cross-border expansion..." class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple"></textarea>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Details or Timeline</label>
+          <textarea rows="3" required placeholder="Upcoming audit deadlines, regulatory notices, or scope..." class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator"></textarea>
         </div>
 
-        <button type="submit" class="w-full py-3 bg-primary-purple hover:bg-primary-purple-hover text-white text-xs font-medium uppercase tracking-wider rounded transition-all font-sans shadow">
-          Request Confidential Briefing
+        <button type="submit" class="w-full py-3 rounded-lg bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md mt-2">
+          Confirm Consultation Request
         </button>
       </form>
-
-      <!-- Modal Success Feedback -->
       <div id="consultModalSuccess" class="hidden text-center py-8 space-y-3">
-        <div class="w-12 h-12 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-        </div>
-        <h4 class="font-serif text-xl text-white">Intake Received</h4>
-        <p class="text-xs text-slate-400 max-w-xs mx-auto">We review inbound mandates within 4 business hours. A partner will reach out directly.</p>
+        <div class="w-12 h-12 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+        <h4 class="font-serif text-xl text-white">Consultation Requested</h4>
+        <p class="text-sm text-slate-400">A partner will contact you within 4 business hours to confirm your session.</p>
       </div>
     </div>
   </div>
