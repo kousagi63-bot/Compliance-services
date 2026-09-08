@@ -709,7 +709,8 @@
 
         <div>
           <label class="block text-xs font-mono text-slate-400 mb-1">Primary Area of Interest</label>
-          <select class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-primary-purple">
+          <select required class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-primary-purple">
+            <option value="" disabled selected>Select an area of interest</option>
             <option>Regulatory AI & Emerging Tech</option>
             <option>DORA & Third-Party Risk</option>
             <option>Data Privacy & GDPR</option>
@@ -719,8 +720,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-mono text-slate-400 mb-1">Details or Timeline (Optional)</label>
-          <textarea rows="3" placeholder="Upcoming audit deadlines, regulatory notices, or scope..." class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-primary-purple"></textarea>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Details or Timeline</label>
+          <textarea rows="3" required placeholder="Upcoming audit deadlines, regulatory notices, or scope..." class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-primary-purple"></textarea>
         </div>
 
         <button type="submit" class="w-full py-3 rounded-lg bg-primary-purple hover:bg-primary-purple-hover text-white font-medium text-sm transition-all shadow-md mt-2">

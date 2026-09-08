@@ -842,11 +842,12 @@
         </div>
         <div>
           <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Company / Organization</label>
-          <input type="text" placeholder="Acme Financial Corp" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
+          <input type="text" required placeholder="Acme Financial Corp" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
         </div>
         <div>
           <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Primary Area of Concern</label>
-          <select class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple">
+          <select required class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple">
+            <option value="" disabled selected>Select an area of concern</option>
             <option>Data Privacy & GDPR</option>
             <option>SOX Compliance & Internal Controls</option>
             <option>HIPAA & Healthcare Data</option>
@@ -857,7 +858,7 @@
         </div>
         <div>
           <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Brief Overview / Timeline</label>
-          <textarea rows="3" placeholder="Upcoming audit deadline, regulatory notice, or cross-border expansion..." class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple"></textarea>
+          <textarea rows="3" required placeholder="Upcoming audit deadline, regulatory notice, or cross-border expansion..." class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple"></textarea>
         </div>
 
         <button type="submit" class="w-full py-3 bg-primary-purple hover:bg-primary-purple-hover text-white text-xs font-medium uppercase tracking-wider rounded transition-all font-sans shadow">
