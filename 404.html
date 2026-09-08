@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | Stackly</title>
+  <link rel="icon" type="image/webp" href="logo.webp" />
+
+  <!-- Google Fonts: Fraunces, IBM Plex Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            downriver: '#070913',
+            biscay: '#153356',
+            'biscay-dark': '#0f243d',
+            equator: '#D4A348',
+            'equator-hover': '#e2b35b',
+            'albescent-white': '#F8F9FA',
+            'athens-gray': '#F1F3F5',
+            'card-dark': '#0C101D',
+            'border-dark': '#1C2538',
+            'camelot': '#7a2245',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-downriver text-slate-300 font-sans antialiased selection:bg-equator selection:text-black min-h-screen">
+
+  <main>
+    <!-- 404 HERO SECTION -->
+    <section class="relative min-h-screen flex items-center overflow-hidden hero-purple-atmosphere">
+      <div class="hero-radial-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[840px] h-[480px] rounded-full pointer-events-none z-0"></div>
+
+      <div data-hero class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <p class="font-mono text-xs text-equator tracking-widest uppercase mb-6">Error 404 • Page Not Found</p>
+        <p data-hero-skip data-404 class="font-serif text-7xl sm:text-[140px] md:text-[200px] leading-none text-white font-normal tracking-tight">
+          404
+        </p>
+        <h1 class="font-serif text-2xl sm:text-4xl md:text-5xl text-white font-normal leading-tight mb-5">
+          This page appears to be out of compliance
+        </h1>
+        <p class="text-base sm:text-lg text-slate-200 font-light max-w-2xl mx-auto leading-relaxed mb-10">
+          The resource you're looking for doesn't exist or has been moved. Let's get you back to an environment we've fully audited.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="index.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 font-sans group">
+            <span>Return Home</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <button onclick="window.history.back()" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-[#0c101d]/80 hover:bg-[#141a2c] text-slate-200 border border-slate-700/80 hover:border-slate-600 font-medium text-sm transition-all text-center">
+            Go Back
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-[#0c101d] border border-equator/40 text-slate-200 px-5 py-3.5 rounded-lg shadow-xl flex items-center gap-3 transition-all transform translate-y-4">
+    <span class="w-2 h-2 rounded-full bg-equator"></span>
+    <span id="toastMsg" class="text-xs font-mono">Notification message</span>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>

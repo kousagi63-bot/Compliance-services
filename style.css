@@ -1,0 +1,515 @@
+/* Style overrides and precision design polish for Stackly */
+
+:root {
+  --color-downriver: #070913;
+  --color-biscay: #153356;
+  --color-equator: #D4A348;
+  --color-card-dark: #0C101D;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #070913;
+  color: #94A3B8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Prevent text elements from forcing horizontal overflow on small screens */
+p, h1, h2, h3, h4, h5, h6, a, span {
+  overflow-wrap: break-word;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: 'Fraunces', Georgia, serif;
+  letter-spacing: -0.015em;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Hero Ambient Radial Glow (Figma exact, strictly on the back side of all words) */
+.hero-radial-glow {
+  position: absolute;
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 45%,
+    rgba(130, 69, 216, 0.88) 0%,
+    rgba(98, 43, 154, 0.78) 28%,
+    rgba(68, 34, 111, 0.55) 50%,
+    rgba(37, 17, 69, 0.3) 70%,
+    rgba(6, 3, 44, 0) 90%
+  );
+  filter: blur(80px);
+  max-width: 100vw;
+  pointer-events: none;
+  z-index: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .hero-radial-glow {
+    width: min(100vw, 480px) !important;
+    height: 280px !important;
+    filter: blur(50px) !important;
+  }
+}
+
+/* Ensure all hero text, badges, headings, and CTAs sit prominently in front with crystal clarity */
+[data-hero],
+.hero-content {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* High-contrast crisp typography over the purple back-glow */
+[data-hero] h1,
+[data-hero] h2,
+[data-hero] .gsap-word {
+  position: relative;
+  z-index: 10;
+  text-shadow: 0 4px 28px rgba(6, 3, 44, 0.9), 0 1px 4px rgba(0, 0, 0, 0.75);
+}
+
+[data-hero] p {
+  position: relative;
+  z-index: 10;
+  text-shadow: 0 2px 16px rgba(6, 3, 44, 0.85);
+}
+
+/* Atmospheric hero background gradient matching Figma reference exact color #06032C 50% */
+.hero-purple-atmosphere,
+section[id="hero"] {
+  background-color: #070913;
+  background-image: 
+    radial-gradient(ellipse 95% 70% at 50% 35%, rgba(98, 43, 154, 0.35) 0%, rgba(48, 22, 84, 0.25) 35%, rgba(6, 3, 44, 0.5) 65%, transparent 100%),
+    linear-gradient(180deg, rgba(6, 3, 44, 0.5) 0%, rgba(7, 9, 19, 0.95) 100%);
+}
+
+/* Premium Easing Variables */
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Card interactive base & subtle styling */
+.card-interactive,
+.bg-card-dark {
+  position: relative;
+  background-color: #0C101D;
+  transition: border-color 0.35s var(--ease-premium),
+              box-shadow 0.4s var(--ease-premium);
+  will-change: transform;
+}
+
+/* Light cards subtle styling */
+.bg-white.card-interactive,
+.bg-albescent-white.card-interactive,
+.bg-\[\#F5F6F8\].card-interactive {
+  position: relative;
+  transition: border-color 0.35s var(--ease-premium),
+              box-shadow 0.4s var(--ease-premium);
+  will-change: transform;
+}
+
+/* Ambient glow & border highlight on hover */
+@media (hover: hover) and (pointer: fine) {
+  .card-interactive {
+    --tw-translate-y: 0px !important; /* prevent CSS conflict with GSAP hover lift */
+  }
+
+  .card-interactive.is-hovered,
+  .bg-card-dark.is-hovered {
+    border-color: rgba(212, 163, 72, 0.45) !important;
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7),
+                0 0 24px -4px rgba(212, 163, 72, 0.2),
+                0 0 36px -6px rgba(91, 69, 245, 0.14) !important;
+  }
+
+  .card-interactive.is-hovered.bg-white,
+  .card-interactive.is-hovered.bg-albescent-white,
+  .card-interactive.is-hovered.bg-\[\#F5F6F8\],
+  .bg-white.rounded-2xl.is-hovered {
+    border-color: rgba(212, 163, 72, 0.5) !important;
+    box-shadow: 0 16px 32px -10px rgba(15, 36, 61, 0.12),
+                0 0 20px -4px rgba(212, 163, 72, 0.18) !important;
+  }
+}
+
+/* Moving gradient flowing border */
+.card-glow-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 163, 72, 0.8),
+    rgba(91, 69, 245, 0.65),
+    rgba(21, 51, 86, 0.15),
+    rgba(212, 163, 72, 0.8)
+  );
+  background-size: 300% 300%;
+  animation: cardGradientFlow 5s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Light card variant of the glow border */
+.bg-white .card-glow-border,
+.bg-albescent-white .card-glow-border,
+.bg-\[\#F5F6F8\] .card-glow-border {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 163, 72, 0.75),
+    rgba(21, 51, 86, 0.55),
+    rgba(212, 163, 72, 0.2),
+    rgba(21, 51, 86, 0.65)
+  );
+  background-size: 300% 300%;
+}
+
+@keyframes cardGradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Spotlight radial glow following cursor */
+.card-spotlight-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(212, 163, 72, 0.09),
+    rgba(91, 69, 245, 0.04) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (hover: none) or (pointer: coarse) {
+  .bg-card-dark:active,
+  .card-interactive:active,
+  .bg-white.rounded-2xl:active {
+    transform: scale(0.99);
+    transition: transform 0.15s var(--ease-premium);
+  }
+}
+
+/* Card interactive icon and image micro-zoom */
+@media (hover: hover) and (pointer: fine) {
+  .card-interactive .group-hover\:scale-110,
+  .card-interactive .group-hover\:scale-105 {
+    transition: none !important;
+  }
+}
+
+/* Group image zoom with subtle scale & premium cubic-bezier */
+.group .overflow-hidden img,
+.group img.group-hover\:scale-105 {
+  transition: transform 0.65s var(--ease-premium) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .overflow-hidden img,
+  .group:hover img.group-hover\:scale-105 {
+    transform: scale(1.035) !important;
+  }
+}
+
+@media (hover: none) {
+  .group-hover\:scale-105 {
+    transform: none !important;
+  }
+}
+
+/* Buttons and interactive controls with subtle scale transitions */
+button,
+a[class*="rounded-md"],
+a[class*="rounded-lg"],
+a[class*="rounded-full"] {
+  transition: transform 0.3s var(--ease-premium),
+              box-shadow 0.3s var(--ease-premium),
+              background-color 0.25s var(--ease-smooth),
+              border-color 0.25s var(--ease-smooth),
+              color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button:hover:not(:disabled),
+  a[class*="bg-equator"]:hover,
+  a[class*="hover:bg-equator"]:hover,
+  a[class*="bg-biscay"]:hover {
+    transform: translateY(-1.5px) scale(1.015);
+    box-shadow: 0 8px 20px -4px rgba(212, 163, 72, 0.22);
+  }
+
+  button.bg-\[\#0c101d\]\/80:hover,
+  button.border:hover {
+    transform: translateY(-1.5px) scale(1.012);
+  }
+}
+
+/* Custom button active state (inward scale, zero overflow) */
+button:active, a:active {
+  transform: scale(0.975) !important;
+  transition-duration: 0.1s !important;
+}
+
+/* Light cards subtle styling */
+.bg-albescent-white {
+  background-color: #F7F8FA;
+}
+
+/* Smooth fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s var(--ease-premium) forwards;
+}
+
+/* Header: scroll shrink + shadow */
+header.header-transitions {
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+header.header-transitions > div:first-child {
+  transition: height 0.35s ease;
+}
+
+header.header-transitions a img {
+  transition: height 0.35s ease, opacity 0.2s ease;
+}
+
+header.is-scrolled {
+  background-color: rgba(7, 9, 19, 0.97);
+  box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+}
+
+header.is-scrolled > div:first-child {
+  height: 4rem;
+}
+
+header.is-scrolled a img {
+  height: 28px;
+}
+
+/* Nav links: animated expanding underline */
+.nav-desktop a {
+  position: relative;
+}
+
+.nav-desktop a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #D4A348, #5B45F5);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-desktop a:hover::after,
+.nav-desktop a.nav-active::after {
+  transform: scaleX(1);
+}
+
+/* Site preloader */
+#sitePreloader {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(91, 69, 245, 0.18) 0%, rgba(7, 9, 19, 0) 55%), #070913;
+  overflow: hidden;
+}
+
+.preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.preloader-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 163, 72, 0.2);
+  border-top-color: #D4A348;
+  display: inline-block;
+}
+
+.preloader-logo {
+  height: 76px;
+  width: auto;
+  object-fit: contain;
+}
+
+.preloader-word {
+  display: none;
+}
+
+.preloader-icons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 22px;
+}
+
+.preloader-icons svg {
+  width: 20px;
+  height: 20px;
+  color: rgba(212, 163, 72, 0.85);
+}
+
+.preloader-bar {
+  width: 180px;
+  height: 2px;
+  background: rgba(212, 163, 72, 0.18);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.preloader-bar > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #D4A348, #5B45F5);
+}
+
+.preloader-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #94A3B8;
+}
+
+.preloader-status i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #D4A348;
+  display: inline-block;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+img[src="logo.webp"] {
+  filter: none;
+}
+
+/* Table rows interactive transition */
+tbody tr {
+  transition: background-color 0.25s var(--ease-smooth);
+}
+
+tbody tr:hover {
+  background-color: rgba(21, 51, 86, 0.25);
+}
+
+/* Status badges subtle scale transition */
+span[class*="rounded-full"] {
+  transition: transform 0.25s var(--ease-premium), background-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  span[class*="rounded-full"]:hover {
+    transform: scale(1.035);
+  }
+}
+
+/* Mobile Drawer Scroll & Polish */
+#mobileDrawer {
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Modal Styling */
+#consultModal {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+}
+
+#consultModal > div {
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  margin: auto;
+}
+
+/* Smooth Touch Scrolling on Tables */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Toast Mobile Positioning */
+@media (max-width: 640px) {
+  #toast {
+    left: 1rem !important;
+    right: 1rem !important;
+    bottom: 1rem !important;
+    max-width: calc(100vw - 2rem) !important;
+    justify-content: center !important;
+  }
+}
+
+/* Dashboard Sidebar Mobile Polish */
+@media (max-width: 1023px) {
+  #sideMenu {
+    max-height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

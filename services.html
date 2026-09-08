@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compliance Services Across Regulated Domains — Stackly</title>
+  <link rel="icon" type="image/webp" href="logo.webp" />
+  
+  <!-- Google Fonts: Fraunces, IBM Plex Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            downriver: '#070913',
+            biscay: '#153356',
+            'biscay-dark': '#0f243d',
+            equator: '#D4A348',
+            'equator-hover': '#e2b35b',
+            'albescent-white': '#F8F9FA',
+            'athens-gray': '#F5F6F7',
+            'card-dark': '#0C101D',
+            'border-dark': '#1C2538',
+            'primary-purple': '#5B45F5',
+            'primary-purple-hover': '#4E38E5',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-downriver text-slate-300 font-sans antialiased selection:bg-equator selection:text-black min-h-screen">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#070913]/90 backdrop-blur-md border-b border-slate-800/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center group focus:outline-none">
+        <img src="logo.webp" alt="Stackly" class="h-16 sm:h-20 w-auto object-contain transition-opacity group-hover:opacity-90">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="services.html" class="text-white font-semibold flex items-center gap-1.5 transition-colors">
+          <span>Services</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-purple"></span>
+        </a>
+        <a href="about.html" class="hover:text-white transition-colors">About</a>
+        <a href="blogs.html" class="hover:text-white transition-colors">Blogs</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right Action CTAs -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="client-login.html" class="px-4 py-2 text-xs font-mono tracking-wide uppercase text-slate-300 hover:text-white rounded-full border border-slate-700/80 hover:border-slate-500 transition-all bg-slate-900/40 inline-flex items-center">
+          Login
+        </a>
+        <button onclick="openConsultationModal()" class="px-5 py-2 text-xs font-medium uppercase tracking-wider text-slate-950 bg-equator hover:bg-equator-hover rounded-full transition-all shadow-sm active:scale-95 font-sans">
+          Schedule Consultation
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="md:hidden flex items-center gap-2">
+        <button id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false" class="p-2 text-slate-400 hover:text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden md:hidden bg-[#0a0d1b] border-b border-slate-800 px-6 py-6 space-y-4 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+      <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-1">Home</a>
+      <a href="services.html" class="block text-white font-semibold py-1">Services</a>
+      <a href="about.html" class="block text-slate-300 hover:text-white font-medium py-1">About</a>
+      <a href="blogs.html" class="block text-slate-300 hover:text-white font-medium py-1">Blogs</a>
+      <a href="contact.html" class="block text-slate-300 hover:text-white font-medium py-1">Contact</a>
+      <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
+        <a href="client-login.html" class="w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 block">Login</a>
+        <button onclick="openConsultationModal()" class="w-full text-center py-2.5 text-xs font-medium uppercase tracking-wider text-slate-950 bg-equator rounded-full">Schedule Consultation</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION (Section: Hero from Figma) -->
+    <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden hero-purple-atmosphere text-center">
+      <!-- Hero Background Image -->
+      <div class="absolute inset-0 z-0 opacity-15 mix-blend-luminosity">
+        <img src="images/service hero.webp" alt="Compliance services across regulated domains" class="w-full h-full object-cover" />
+      </div>
+      <!-- Ambient Radial Glow (Figma Exact Color) -->
+      <div class="hero-radial-glow absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[840px] h-[480px] rounded-full pointer-events-none z-0"></div>
+      
+      <div data-hero class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-950/40 backdrop-blur-sm mb-8 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-primary-purple animate-pulse"></span>
+          <span class="font-mono text-xs text-indigo-200 tracking-wider">Regulatory Advisory • Est. 2008</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[64px] font-normal text-white tracking-tight leading-[1.12] mb-6">
+          Compliance services across<br class="hidden sm:inline" />
+          regulated domains
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-base sm:text-lg md:text-xl text-slate-200 font-light max-w-3xl mx-auto leading-relaxed mb-10">
+          We programmatically align your operations with global mandates. Our specialists construct rigorous risk assessments, complete implementation roadmaps, and deliver seamless audits.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="404.html" data-magnetic class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 font-sans">
+            Schedule Consultation
+          </a>
+          <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-[#0c101d]/80 hover:bg-[#141a2c] text-slate-200 border border-slate-700/80 hover:border-slate-600 font-medium text-sm transition-all">
+            Explore Advisory Grid
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: SERVICES GRID (Section: Services Grid from Figma) -->
+    <section id="practices" class="py-24 bg-albescent-white text-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div data-reveal="up" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-[#9B6E1F] tracking-widest uppercase mb-3">OUR PRACTICES</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#0B1528] font-normal mb-4">
+            Programmes built for sustained obligation
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+            We staff our engagements with certified subject-matter leads who understand your examiners' specific testing criteria.
+          </p>
+        </div>
+
+        <!-- 6 Practice Cards Grid (3 cols x 2 rows) with photographic images -->
+        <div data-stagger="clip" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Card 1: Data Privacy & GDPR -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="h-44 overflow-hidden bg-[#E2EDFB] relative flex items-center justify-center">
+                <img src="images/pic1.webp" alt="Data Privacy & GDPR" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div class="p-7">
+                <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-2">DATA & PRIVACY</p>
+                <h3 class="font-serif text-xl text-[#0B1528] font-medium mb-3">Data Privacy & GDPR</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">
+                  Operationalise global compliance mandates, deploy secure user tracking consent mechanisms, and map sensitive data structures to withstand cross-border privacy audits.
+                </p>
+              </div>
+            </div>
+            <div class="px-7 pb-7">
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: SOX Compliance -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="h-44 overflow-hidden bg-slate-900 relative">
+                <img src="images/pic2.webp" alt="SOX Compliance" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              </div>
+              <div class="p-7">
+                <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-2">FINANCIAL</p>
+                <h3 class="font-serif text-xl text-[#0B1528] font-medium mb-3">SOX Compliance</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">
+                  Automate internal controls over financial reporting with transparent evidence trails. Secure auditor confidence in your finance statement accuracy from day one.
+                </p>
+              </div>
+            </div>
+            <div class="px-7 pb-7">
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: HIPAA Compliance -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="h-44 overflow-hidden bg-slate-900 relative">
+                <img src="images/pic3.webp" alt="HIPAA Compliance" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              </div>
+              <div class="p-7">
+                <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-2">HEALTHCARE</p>
+                <h3 class="font-serif text-xl text-[#0B1528] font-medium mb-3">HIPAA Compliance</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">
+                  Achieve clinical protection for protected health information (PHI). Scale patient administration safely inside the bounds of Security, Privacy, and Breach Notification rules.
+                </p>
+              </div>
+            </div>
+            <div class="px-7 pb-7">
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Anti-Money Laundering -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="h-44 overflow-hidden bg-slate-900 relative">
+                <img src="images/pic4.webp" alt="Anti-Money Laundering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              </div>
+              <div class="p-7">
+                <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-2">GOVERNANCE</p>
+                <h3 class="font-serif text-xl text-[#0B1528] font-medium mb-3">Anti-Money Laundering</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">
+                  Implement scalable Know Your Customer (KYC) and AML frameworks. Deploy high-fidelity transaction monitoring that mitigates systemic financial risk effortlessly.
+                </p>
+              </div>
+            </div>
+            <div class="px-7 pb-7">
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 5: Environmental Compliance -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="h-44 overflow-hidden bg-slate-900 relative">
+                <img src="images/pic5.webp" alt="Environmental Compliance" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              </div>
+              <div class="p-7">
+                <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-2">ESG</p>
+                <h3 class="font-serif text-xl text-[#0B1528] font-medium mb-3">Environmental Compliance</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">
+                  Document corporate carbon metrics, monitor raw material sourcing, and prepare transparent reporting frameworks aligning perfectly with standard ESG directives.
+                </p>
+              </div>
+            </div>
+            <div class="px-7 pb-7">
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 6: Cybersecurity Risk -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="h-44 overflow-hidden bg-slate-900 relative">
+                <img src="images/pic6.webp" alt="Cybersecurity Risk" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              </div>
+              <div class="p-7">
+                <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-2">CYBERSECURITY</p>
+                <h3 class="font-serif text-xl text-[#0B1528] font-medium mb-3">Cybersecurity Risk</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">
+                  Identify software vulnerabilities, design defensible business continuity protocols, and adapt technology architecture with SOC 2 or ISO 27001 requirements.
+                </p>
+              </div>
+            </div>
+            <div class="px-7 pb-7">
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: OUR APPROACH (Section: Our Approach from Figma) -->
+    <section class="py-24 border-t border-slate-200 bg-white text-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left: Blueprint Team Photo -->
+          <div data-reveal="left" class="lg:col-span-6">
+            <div data-parallax class="rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-100">
+              <img src="images/pic7.webp" alt="Advisory Team Collaborating over Blueprint Plans" class="w-full h-[460px] object-cover" />
+            </div>
+          </div>
+
+          <!-- Right: 3 Steps Methodology -->
+          <div data-reveal="right" class="lg:col-span-6 space-y-8">
+            <div>
+              <p class="font-mono text-xs text-[#9B6E1F] tracking-widest uppercase mb-2">METHODOLOGY</p>
+              <h2 class="font-serif text-3xl sm:text-4xl text-[#0B1528] font-normal mb-4">
+                A five-stage engagement model
+              </h2>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
+                Each phase produces auditable assets your board, external examiners and underwriters can confidently stand behind.
+              </p>
+            </div>
+
+            <div data-stagger="up" class="space-y-6 pt-2">
+              
+              <!-- Step 01 -->
+              <div class="border-t border-slate-200 pt-4">
+                <div class="flex items-baseline gap-3 mb-1.5">
+                  <span class="font-mono text-xs font-semibold text-[#9B6E1F]">01</span>
+                  <h4 class="font-serif text-lg text-[#0B1528] font-medium">Assessment & Scoping</h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light pl-7">
+                  Identify regulatory obligations, scope control boundaries, and pinpoint operational vulnerabilities against established global frameworks.
+                </p>
+              </div>
+
+              <!-- Step 02 -->
+              <div class="border-t border-slate-200 pt-4">
+                <div class="flex items-baseline gap-3 mb-1.5">
+                  <span class="font-mono text-xs font-semibold text-[#9B6E1F]">02</span>
+                  <h4 class="font-serif text-lg text-[#0B1528] font-medium">Gap Analysis & Strategy</h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light pl-7">
+                  Map current operational practices against targeted mandates to generate a prioritised mitigation roadmap for key stakeholders.
+                </p>
+              </div>
+
+              <!-- Step 03 -->
+              <div class="border-t border-slate-200 pt-4">
+                <div class="flex items-baseline gap-3 mb-1.5">
+                  <span class="font-mono text-xs font-semibold text-[#9B6E1F]">03</span>
+                  <h4 class="font-serif text-lg text-[#0B1528] font-medium">Implementation & Testing</h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light pl-7">
+                  Deploy compliant workflows, draft required corporate policy documentation, and validate newly constructed controls alongside your team.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: INDUSTRY EXPERTISE (Section: Industry Expertise from Figma) -->
+    <section class="py-24 border-t border-slate-200 bg-albescent-white text-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div data-reveal="right" class="max-w-3xl mb-14">
+          <p class="font-mono text-xs text-[#9B6E1F] tracking-widest uppercase mb-3">INDUSTRIES WE SECURE</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#0B1528] font-normal mb-4">
+            Deep vertical capability
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+            Compliance requirements do not translate globally in a vacuum. We operate expert-led groups targeting specific market verticals.
+          </p>
+        </div>
+
+        <!-- 4 Industry Cards -->
+        <div data-stagger="up" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Financial Services -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
+            <div class="h-36 overflow-hidden bg-slate-900">
+              <img src="images/pic8.webp" alt="Financial Services" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-6">
+              <h3 class="font-serif text-lg text-[#0B1528] font-medium mb-2.5">Financial Services</h3>
+              <p class="text-slate-600 text-xs leading-relaxed font-light">
+                Manage SOX, SEC, and AML regulations with robust transaction ledger tracking and automated internal audit paths.
+              </p>
+            </div>
+          </div>
+
+          <!-- Healthcare -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
+            <div class="h-36 overflow-hidden bg-slate-900">
+              <img src="images/pic9.webp" alt="Healthcare" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-6">
+              <h3 class="font-serif text-lg text-[#0B1528] font-medium mb-2.5">Healthcare</h3>
+              <p class="text-slate-600 text-xs leading-relaxed font-light">
+                Deliver secure, scalable patient applications fully integrated with the complex HIPAA privacy and data-breach protection guidelines.
+              </p>
+            </div>
+          </div>
+
+          <!-- Technology -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
+            <div class="h-36 overflow-hidden bg-slate-900">
+              <img src="images/pic10.webp" alt="Technology" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-6">
+              <h3 class="font-serif text-lg text-[#0B1528] font-medium mb-2.5">Technology</h3>
+              <p class="text-slate-600 text-xs leading-relaxed font-light">
+                Establish SOC 2, ISO 27001, and dynamic cloud infrastructure security protocols that expedite corporate vendor review.
+              </p>
+            </div>
+          </div>
+
+          <!-- Energy & Utilities -->
+          <div class="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
+            <div class="h-36 overflow-hidden bg-slate-900">
+              <img src="images/pic11.webp" alt="Energy & Utilities" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-6">
+              <h3 class="font-serif text-lg text-[#0B1528] font-medium mb-2.5">Energy & Utilities</h3>
+              <p class="text-slate-600 text-xs leading-relaxed font-light">
+                Coordinate FERC, NERC, and strict state-level environmental ESG data logging with fully transparent evidence paths.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: KEY METRICS (Section: Key Metrics from Figma) -->
+    <section class="py-24 bg-downriver text-white border-y border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div data-reveal="zoom" class="text-center max-w-3xl mx-auto mb-16">
+          <p class="font-mono text-xs text-equator tracking-widest uppercase mb-3">TRACK RECORD</p>
+          <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal mb-4">
+            We deliver certain outcomes
+          </h2>
+          <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
+            Auditors, underwriting boards, and regulators rely on our rigorous evidence trails because they are proven to withstand scrutiny.
+          </p>
+        </div>
+
+        <!-- 4 Metric Counters -->
+        <div data-stagger="up" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-800/80">
+          
+          <div class="pt-6 sm:pt-0 md:px-4">
+            <p data-count class="font-serif text-4xl sm:text-5xl lg:text-6xl text-equator font-normal mb-2">500+</p>
+            <p class="text-sm font-semibold text-white mb-1">Audits Completed</p>
+            <p class="text-xs text-slate-400 font-light">Zero audit failures reported since 2008</p>
+          </div>
+
+          <div class="pt-6 sm:pt-0 md:px-4">
+            <p data-count class="font-serif text-4xl sm:text-5xl lg:text-6xl text-equator font-normal mb-2">98%</p>
+            <p class="text-sm font-semibold text-white mb-1">Success Rate</p>
+            <p class="text-xs text-slate-400 font-light">First-attempt certifications across frameworks</p>
+          </div>
+
+          <div class="pt-6 sm:pt-0 md:px-4">
+            <p data-count class="font-serif text-4xl sm:text-5xl lg:text-6xl text-equator font-normal mb-2">200+</p>
+            <p class="text-sm font-semibold text-white mb-1">Enterprise Clients</p>
+            <p class="text-xs text-slate-400 font-light">Global operators trust our advisory practices</p>
+          </div>
+
+          <div class="pt-6 sm:pt-0 md:px-4">
+            <p data-count class="font-serif text-4xl sm:text-5xl lg:text-6xl text-equator font-normal mb-2">15+</p>
+            <p class="text-sm font-semibold text-white mb-1">Years Experience</p>
+            <p class="text-xs text-slate-400 font-light">Decades of regulatory advisory in-house</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: TEAM / PRACTICE LEADS (Section: Team from Figma) -->
+    <section class="py-24 bg-athens-gray text-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div data-reveal="left" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-[#9B6E1F] tracking-widest uppercase mb-3">OUR PRACTICE LEADS</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#0B1528] font-normal mb-4">
+            Credentialed practitioners at your service
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+            We do not hand off your regulatory compliance to junior associates. Your account is overseen by a named partner from start to finish.
+          </p>
+        </div>
+
+        <!-- 3 Practice Lead Cards -->
+        <div data-stagger="up" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Margaret Ellison -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-4 mb-6">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&h=160&fit=crop&crop=face" alt="Margaret Ellison" class="w-14 h-14 rounded-full object-cover border border-slate-200" />
+                <div>
+                  <h3 class="text-base font-semibold text-slate-900">Margaret Ellison</h3>
+                  <p class="text-xs text-slate-500">Managing Partner, Financial Advisory</p>
+                </div>
+              </div>
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
+                With 18 years in corporate finance controls, Margaret handles our SOX and SEC advisory groups. Formerly with PwC, she ensures audit readiness.
+              </p>
+            </div>
+          </div>
+
+          <!-- Arun Deshpande -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-4 mb-6">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&fit=crop&crop=face" alt="Arun Deshpande" class="w-14 h-14 rounded-full object-cover border border-slate-200" />
+                <div>
+                  <h3 class="text-base font-semibold text-slate-900">Arun Deshpande</h3>
+                  <p class="text-xs text-slate-500">Director, Data Privacy Practice</p>
+                </div>
+              </div>
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
+                Arun holds both CIPP/E and CISA credentials. He specializes in designing robust user consent logic that passes GDPR review.
+              </p>
+            </div>
+          </div>
+
+          <!-- Naomi Clarke -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-4 mb-6">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=160&h=160&fit=crop&crop=face" alt="Naomi Clarke" class="w-14 h-14 rounded-full object-cover border border-slate-200" />
+                <div>
+                  <h3 class="text-base font-semibold text-slate-900">Naomi Clarke</h3>
+                  <p class="text-xs text-slate-500">Head of Risk & ESG Practices</p>
+                </div>
+              </div>
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
+                Naomi oversees compliance across energy and environmental verticals. She advises energy providers on complex FERC audit compliance.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CTA BANNER (Section: CTA from Figma) -->
+    <section class="py-24 bg-[#080E1D] text-white text-center border-t border-slate-800 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 via-transparent to-black/30 pointer-events-none"></div>
+      <div data-reveal="zoom" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal mb-5 leading-tight">
+          Partner with us for regulatory excellence
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 font-light">
+          Speak with a partner about your compliance obligations, or begin with our readiness assessment covering the key metrics examiners test first.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md active:scale-95">
+            Schedule a Call
+          </a>
+          <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-[#0e2238] border border-blue-400/30 hover:border-blue-300/60 text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Download Compliance Guide</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="bg-[#050711] border-t border-slate-800/80 pt-16 pb-12 text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div data-reveal="up" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-slate-800/70">
+        
+        <!-- Col 1: Brand -->
+        <div class="lg:col-span-2 space-y-6">
+          <a href="index.html" class="flex items-center group focus:outline-none">
+            <img src="logo.webp" alt="Stackly" class="h-16 sm:h-20 w-auto object-contain transition-opacity group-hover:opacity-90">
+          </a>
+          
+          <p class="text-sm text-slate-400 max-w-sm leading-relaxed font-light">
+            Regulatory advisory for organisations operating under sustained compliance obligation. Established 2008, New York and London.
+          </p>
+
+          <div>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors">
+              <svg class="w-4 h-4 text-equator" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Services Links -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">SERVICES</p>
+          <ul class="space-y-2.5 text-xs text-slate-400 font-light">
+            <li><a href="404.html" class="hover:text-white transition-colors">Data Privacy & GDPR Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">SOX Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">HIPAA Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">Anti-Money Laundering</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">Cybersecurity Risk</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Company Links -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">COMPANY</p>
+          <ul class="space-y-2.5 text-xs text-slate-400 font-light">
+            <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="services.html" class="hover:text-white transition-colors">Services</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="blogs.html" class="hover:text-white transition-colors">Blogs</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Newsletter -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">CONTACT</p>
+          <div class="space-y-2 text-xs text-slate-400 font-light mb-6">
+            <p class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <a href="mailto:advisory@stackly.com" class="hover:text-white transition-colors">advisory@stackly.com</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <span>+1 (415) 555-0192</span>
+            </p>
+            <p class="flex items-start gap-2 pt-1 text-slate-400">
+              <svg class="w-3.5 h-3.5 text-slate-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>Midtown Complex, 120 Park Avenue, Floor 18, New York, NY 10017</span>
+            </p>
+          </div>
+
+          <!-- Newsletter -->
+          <div>
+            <p class="text-xs text-slate-300 font-medium mb-2">Monthly regulatory brief</p>
+            <form id="newsletterForm" onsubmit="handleNewsletter(event)" class="flex items-center">
+              <input type="email" required placeholder="name@company.com" class="min-w-0 flex-1 bg-[#0a0f1d] border border-slate-700/80 rounded-l-md px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-equator" />
+              <button type="submit" class="bg-equator hover:bg-equator-hover text-slate-950 font-medium text-xs px-3.5 py-2 rounded-r-md transition-colors whitespace-nowrap">
+                Subscribe
+              </button>
+            </form>
+            <p id="newsletterSuccess" class="hidden text-xs text-emerald-400 mt-1.5 font-mono">Thank you for subscribing!</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Legal Row -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2024 Stackly Advisors LLC. All rights reserved.</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-2 text-center sm:text-right">
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Privacy Notice</a>
+          <span>•</span>
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Terms of Engagement</a>
+          <span>•</span>
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Cookie Preferences</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- CONSULTATION MODAL -->
+  <div id="consultModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm overflow-y-auto flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#0c101d] border border-slate-800 rounded-2xl max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 shadow-2xl relative text-left my-auto">
+      <button onclick="closeConsultModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="mb-6">
+        <p class="font-mono text-xs text-equator tracking-widest uppercase mb-1">CONNECT WITH AN ADVISOR</p>
+        <h3 id="modalTitle" class="font-serif text-2xl text-white font-medium">Schedule a Consultation</h3>
+        <p class="text-xs text-slate-400 mt-1">Discuss your obligations with a credentialed regulatory partner.</p>
+      </div>
+
+      <form id="consultForm" onsubmit="handleConsultSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Full Name</label>
+          <input type="text" required placeholder="e.g. Eleanor Vance" class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Work Email</label>
+          <input type="email" required placeholder="name@company.com" class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Primary Area of Interest</label>
+          <select class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-equator">
+            <option>Data Privacy & GDPR</option>
+            <option>SOX Compliance</option>
+            <option>HIPAA Compliance</option>
+            <option>Anti-Money Laundering</option>
+            <option>Environmental Compliance (ESG)</option>
+            <option>Cybersecurity Risk</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Details or Timeline (Optional)</label>
+          <textarea rows="3" placeholder="Upcoming audit deadlines, regulatory notices, or scope..." class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-lg bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md mt-2">
+          Confirm Consultation Request
+        </button>
+      </form>
+      <div id="consultModalSuccess" class="hidden text-center py-8 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+        <h4 class="font-serif text-xl text-white">Consultation Requested</h4>
+        <p class="text-sm text-slate-400">A partner will contact you within 4 business hours to confirm your session.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-[#0c101d] border border-equator/40 text-slate-200 px-5 py-3.5 rounded-lg shadow-xl flex items-center gap-3 transition-all transform translate-y-4">
+    <span class="w-2 h-2 rounded-full bg-equator"></span>
+    <span id="toastMsg" class="text-xs font-mono">Notification message</span>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>

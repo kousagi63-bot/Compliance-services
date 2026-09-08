@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Stackly Compliance Advisory</title>
+  <link rel="icon" type="image/webp" href="logo.webp" />
+  
+  <!-- Google Fonts: Fraunces, IBM Plex Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            downriver: '#070913',
+            biscay: '#153356',
+            'biscay-dark': '#0f243d',
+            equator: '#D4A348',
+            'equator-hover': '#e2b35b',
+            'primary-purple': '#5B45F5',
+            'primary-purple-hover': '#4a36e0',
+            'albescent-white': '#F8F9FA',
+            'athens-gray': '#F5F6F8',
+            'card-dark': '#0C101D',
+            'border-dark': '#1C2538',
+            'camelot': '#7a2245',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-downriver text-slate-300 font-sans antialiased selection:bg-primary-purple selection:text-white min-h-screen">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#070913]/90 backdrop-blur-md border-b border-slate-800/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center group focus:outline-none">
+        <img src="logo.webp" alt="Stackly" class="h-16 sm:h-20 w-auto object-contain transition-opacity group-hover:opacity-90">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="services.html" class="hover:text-white transition-colors">Services</a>
+        <a href="about.html" class="hover:text-white transition-colors">About</a>
+        <a href="blogs.html" class="hover:text-white transition-colors">Blogs</a>
+        <a href="contact.html" class="text-white font-semibold flex items-center gap-1.5 transition-colors">
+          <span>Contact</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-purple"></span>
+        </a>
+      </nav>
+
+      <!-- Right Action CTAs -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="client-login.html" class="px-4 py-2 text-xs font-mono tracking-wide uppercase text-slate-300 hover:text-white rounded-full border border-slate-700/80 hover:border-slate-500 transition-all bg-slate-900/40 inline-flex items-center">
+          Login
+        </a>
+        <button onclick="openConsultationModal()" class="px-5 py-2 text-xs font-medium uppercase tracking-wider text-slate-950 bg-equator hover:bg-equator-hover rounded-full transition-all shadow-sm active:scale-95 font-sans">
+          Schedule Consultation
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="md:hidden flex items-center gap-2">
+        <button id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false" class="p-2 text-slate-400 hover:text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden md:hidden bg-[#0a0d1b] border-b border-slate-800 px-6 py-6 space-y-4 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+      <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-1">Home</a>
+      <a href="services.html" class="block text-slate-300 hover:text-white font-medium py-1">Services</a>
+      <a href="about.html" class="block text-slate-300 hover:text-white font-medium py-1">About</a>
+      <a href="blogs.html" class="block text-slate-300 hover:text-white font-medium py-1">Blogs</a>
+      <a href="contact.html" class="block text-white font-semibold py-1">Contact</a>
+      <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
+        <a href="client-login.html" class="w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 block">Login</a>
+        <button onclick="openConsultationModal()" class="w-full text-center py-2.5 text-xs font-medium uppercase tracking-wider text-slate-950 bg-equator rounded-full">Schedule Consultation</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="relative pt-36 pb-20 md:pt-40 md:pb-24 overflow-hidden hero-purple-atmosphere">
+      <!-- Ambient Radial Glow (Figma Exact Color) -->
+      <div class="hero-radial-glow absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[460px] rounded-full pointer-events-none z-0"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <!-- Left Hero Content -->
+          <div data-hero class="lg:col-span-6 space-y-6">
+            <!-- Pill Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-950/40 backdrop-blur-sm shadow-inner">
+              <span class="w-2 h-2 rounded-full bg-primary-purple animate-pulse"></span>
+              <span class="font-mono text-xs text-indigo-200 tracking-wider uppercase font-medium">GLOBAL REGULATORY ADVISORY</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-serif text-3xl sm:text-5xl lg:text-[56px] font-normal text-white tracking-tight leading-[1.15]">
+              Get In Touch
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-light max-w-xl">
+              Connect with our senior managing partners and regulatory consultants to build proactive compliance strategies, audit-ready operational standards, and robust risk frameworks.
+            </p>
+
+            <!-- 2-Column Metrics -->
+            <div class="pt-6 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-md">
+              <div>
+                <p data-count class="font-serif text-3xl sm:text-4xl font-semibold text-white tracking-tight">24h</p>
+                <p class="font-mono text-xs text-slate-400 uppercase tracking-wider mt-1.5">Average Response Time</p>
+              </div>
+              <div>
+                <p data-count class="font-serif text-3xl sm:text-4xl font-semibold text-white tracking-tight">100%</p>
+                <p class="font-mono text-xs text-slate-400 uppercase tracking-wider mt-1.5">Regulatory Assurance</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Hero Image Frame -->
+          <div class="lg:col-span-6">
+            <div data-parallax data-hero-visual class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-card-dark group">
+              <img 
+                src="images/cont1.webp" 
+                alt="Stackly Executive Boardroom Consultation" 
+                class="w-full h-[360px] sm:h-[420px] lg:h-[460px] object-cover" 
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-downriver/70 via-transparent to-transparent pointer-events-none"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SEND US A MESSAGE SECTION -->
+    <section id="send-message" class="py-20 lg:py-24 bg-white text-slate-900 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div data-reveal="up" class="max-w-3xl mb-14">
+          <h2 class="font-serif text-3xl sm:text-4xl font-normal text-slate-900 tracking-tight mb-4">
+            Send Us a Message
+          </h2>
+          <p class="text-slate-600 text-base leading-relaxed">
+            We provide highly specialized guidance tailored to your operational realities. Fill out the consultation request, and a partner with direct domain expertise in your sector will evaluate your requirements.
+          </p>
+        </div>
+
+        <!-- 2-Column Grid: Contact Details & Form -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          <!-- Left Column: Direct Channels -->
+          <div data-stagger="left" class="lg:col-span-4 space-y-8">
+            
+            <!-- Call Desk -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-primary-purple border border-slate-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-mono text-xs text-slate-400 uppercase tracking-wider font-semibold">CALL ADVISORY DESK</p>
+                <a href="404.html" class="text-base sm:text-lg font-semibold text-slate-900 hover:text-primary-purple transition-colors block mt-1">
+                  +1 (212) 555-0190
+                </a>
+              </div>
+            </div>
+
+            <!-- General Inquiries -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-primary-purple border border-slate-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-mono text-xs text-slate-400 uppercase tracking-wider font-semibold">GENERAL INQUIRIES</p>
+                <a href="mailto:advisory@stacklyadvisory.com" class="text-base sm:text-lg font-semibold text-slate-900 hover:text-primary-purple transition-colors block mt-1 break-all">
+                  advisory@stacklyadvisory.com
+                </a>
+              </div>
+            </div>
+
+            <!-- Operational Hours -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-primary-purple border border-slate-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-mono text-xs text-slate-400 uppercase tracking-wider font-semibold">OPERATIONAL HOURS</p>
+                <p class="text-base sm:text-lg font-semibold text-slate-900 block mt-1">
+                  08:00 - 18:00 EST / GMT
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Interactive Form -->
+          <div data-reveal="right" class="lg:col-span-8">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 md:p-10 shadow-sm">
+              
+              <!-- Active Form -->
+              <form id="contactForm" onsubmit="handleContactSubmit(event)" data-stagger="up" class="space-y-6">
+                <!-- Row 1: Name & Email -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-slate-700 uppercase tracking-wider mb-2">Full Name</label>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="e.g. Eleanor Vance" 
+                      class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-primary-purple focus:ring-1 focus:ring-primary-purple transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-slate-700 uppercase tracking-wider mb-2">Email Address</label>
+                    <input 
+                      type="email" 
+                      required 
+                      placeholder="e.g. eleanor@company.com" 
+                      class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-primary-purple focus:ring-1 focus:ring-primary-purple transition-all"
+                    />
+                  </div>
+                </div>
+
+                <!-- Row 2: Company & Phone -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-slate-700 uppercase tracking-wider mb-2">Company Name</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Apex Global Financial" 
+                      class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-primary-purple focus:ring-1 focus:ring-primary-purple transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-slate-700 uppercase tracking-wider mb-2">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      placeholder="e.g. +1 (555) 019-2834" 
+                      class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-primary-purple focus:ring-1 focus:ring-primary-purple transition-all"
+                    />
+                  </div>
+                </div>
+
+                <!-- Row 3: Subject of Inquiry (Select Dropdown) -->
+                <div>
+                  <label class="block text-xs font-mono font-medium text-slate-700 uppercase tracking-wider mb-2">Subject of Inquiry</label>
+                  <div class="relative">
+                    <select 
+                      id="contactSubject" 
+                      class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-primary-purple focus:ring-1 focus:ring-primary-purple transition-all appearance-none cursor-pointer pr-10"
+                    >
+                      <option value="" disabled selected>Select practice area (e.g. GDPR, SOX, HIPAA Audit)</option>
+                      <option value="Data Privacy & GDPR Compliance">Data Privacy & GDPR Compliance</option>
+                      <option value="SOX Compliance & Internal Controls">SOX Compliance & Internal Controls</option>
+                      <option value="HIPAA & Health Sciences Privacy">HIPAA & Health Sciences Privacy</option>
+                      <option value="SOC 2 & Cloud Security Architecture">SOC 2 & Cloud Security Architecture</option>
+                      <option value="AI Regulatory Compliance & EU AI Act">AI Regulatory Compliance & EU AI Act</option>
+                      <option value="Anti-Money Laundering (AML/KYC)">Anti-Money Laundering (AML/KYC)</option>
+                      <option value="Cross-Border Risk Assessment">Cross-Border Risk Assessment</option>
+                      <option value="General Regulatory Audit Readiness">General Regulatory Audit Readiness</option>
+                    </select>
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 4: Your Message -->
+                <div>
+                  <label class="block text-xs font-mono font-medium text-slate-700 uppercase tracking-wider mb-2">Your Message</label>
+                  <textarea 
+                    id="contactMessage"
+                    rows="4" 
+                    required 
+                    placeholder="Describe your regulatory timeline, compliance bottlenecks, or specific advisory scope..." 
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-primary-purple focus:ring-1 focus:ring-primary-purple transition-all"
+                  ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                  <button 
+                    type="submit" 
+                    class="px-8 py-3.5 bg-primary-purple hover:bg-primary-purple-hover text-white text-sm font-medium rounded-full transition-all shadow-md active:scale-95 flex items-center gap-2"
+                  >
+                    <span>Send Message</span>
+                    <span class="text-base leading-none">→</span>
+                  </button>
+                </div>
+              </form>
+
+              <!-- Success State -->
+              <div id="contactFormSuccess" class="hidden text-center py-12 space-y-4">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <h3 class="font-serif text-2xl font-normal text-slate-900">Message Delivered Successfully</h3>
+                <p class="text-slate-600 text-sm max-w-md mx-auto">
+                  Thank you for reaching out. A senior managing partner with specific expertise in your domain will review your requirements and respond within 24 hours.
+                </p>
+                <div class="pt-4">
+                  <button onclick="resetContactForm()" class="px-5 py-2 text-xs font-mono uppercase tracking-wider text-slate-700 hover:text-slate-950 border border-slate-300 rounded-full hover:bg-slate-50 transition-colors">
+                    Send Another Inquiry
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR GLOBAL OFFICES SECTION -->
+    <section class="py-14 sm:py-20 lg:py-[100px] bg-[#F5F6F8] text-slate-900 border-b border-slate-200">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-12 lg:px-16">
+        
+        <!-- Section Header -->
+        <div data-reveal="up" class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="font-sans font-bold text-3xl sm:text-[32px] text-[#153356] tracking-tight mb-2.5">
+            Our Global Offices
+          </h2>
+          <p class="font-sans text-xs sm:text-sm text-slate-500 leading-relaxed">
+            Operating across major financial and regulatory capitals to serve multinational organizations.
+          </p>
+        </div>
+
+        <!-- 3-Card Grid -->
+        <div data-stagger="up" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Office 1: New York HQ -->
+          <div data-tilt class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow group flex flex-col justify-between">
+            <div class="h-48 sm:h-52 overflow-hidden relative">
+              <img 
+                src="images/cont2.webp" 
+                alt="New York HQ Manhattan Skyline" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-2">New York HQ</h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-sans mb-5">
+                  520 Madison Avenue, 28th Floor<br />
+                  New York, NY 10022
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 font-sans text-xs space-y-1">
+                <p>
+                  <a href="404.html" class="text-slate-500 hover:text-[#153356] transition-colors">
+                    ny@stacklyadvisory.com
+                  </a>
+                </p>
+                <p>
+                  <a href="404.html" class="text-[#153356] font-bold hover:text-amber-600 transition-colors">
+                    +1 (212) 555-0190
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Office 2: London Square Mile -->
+          <div data-tilt class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow group flex flex-col justify-between">
+            <div class="h-48 sm:h-52 overflow-hidden relative">
+              <img 
+                src="images/cont3.webp" 
+                alt="London Square Mile 30 St Mary Axe" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-2">London Square Mile</h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-sans mb-5">
+                  30 St Mary Axe, 12th Floor<br />
+                  London EC3A 8BF
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 font-sans text-xs space-y-1">
+                <p>
+                  <a href="404.html" class="text-slate-500 hover:text-[#153356] transition-colors">
+                    uk@stacklyadvisory.com
+                  </a>
+                </p>
+                <p>
+                  <a href="404.html" class="text-[#153356] font-bold hover:text-amber-600 transition-colors">
+                    +44 20 7946 0958
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Office 3: Singapore Center -->
+          <div data-tilt class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow group flex flex-col justify-between">
+            <div class="h-48 sm:h-52 overflow-hidden relative">
+              <img 
+                src="images/cont4.webp" 
+                alt="Singapore Center Marina Bay Waterfront" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-2">Singapore Center</h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-sans mb-5">
+                  8 Marina Boulevard, Level 41<br />
+                  Singapore 018981
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 font-sans text-xs space-y-1">
+                <p>
+                  <a href="404.html" class="text-slate-500 hover:text-[#153356] transition-colors">
+                    sg@stacklyadvisory.com
+                  </a>
+                </p>
+                <p>
+                  <a href="404.html" class="text-[#153356] font-bold hover:text-amber-600 transition-colors">
+                    +65 6555 0122
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR COMPLIANCE EXPERTS SECTION -->
+    <section class="py-14 sm:py-20 lg:py-[100px] bg-white text-slate-900 border-b border-slate-200">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-12 lg:px-16">
+        
+        <!-- Section Header -->
+        <div data-reveal="left" class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="font-sans font-bold text-3xl sm:text-[32px] text-[#153356] tracking-tight mb-2.5">
+            Our Compliance Experts
+          </h2>
+          <p class="font-sans text-xs sm:text-sm text-slate-500 leading-relaxed">
+            Connect directly with lead advisors ready to help map out your regulatory solutions.
+          </p>
+        </div>
+
+        <!-- 4-Card Grid -->
+        <div data-stagger="up" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Expert 1: Marcus Vance -->
+          <div class="bg-[#F5F6F8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="h-64 overflow-hidden relative">
+              <img 
+                src="images/ab1.webp" 
+                alt="Marcus Vance — Chief Compliance Officer" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-1">Marcus Vance</h3>
+                <p class="font-sans text-xs font-semibold text-[#6366F1] tracking-normal mb-2.5">
+                  Chief Compliance Officer
+                </p>
+                <p class="font-sans text-xs text-slate-500 leading-relaxed">
+                  Former SEC regulatory examiner specializing in tier-1 capital accounting.
+                </p>
+              </div>
+              <div class="pt-5 mt-auto">
+                <button 
+                  onclick="window.location.href='404.html'" 
+                  class="font-sans text-xs font-bold text-[#B48228] hover:text-[#9B6E1F] transition-colors text-left focus:outline-none"
+                >
+                  Contact Marcus
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expert 2: Elena Rostova -->
+          <div class="bg-[#F5F6F8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="h-64 overflow-hidden relative">
+              <img 
+                src="images/ab3.webp" 
+                alt="Elena Rostova — Head of Regulatory Affairs" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-1">Elena Rostova</h3>
+                <p class="font-sans text-xs font-semibold text-[#6366F1] tracking-normal mb-2.5">
+                  Head of Regulatory Affairs
+                </p>
+                <p class="font-sans text-xs text-slate-500 leading-relaxed">
+                  Specialist in EU AI Act planning, GDPR privacy logic, and multinational data transfers.
+                </p>
+              </div>
+              <div class="pt-5 mt-auto">
+                <button 
+                  onclick="window.location.href='404.html'" 
+                  class="font-sans text-xs font-bold text-[#B48228] hover:text-[#9B6E1F] transition-colors text-left focus:outline-none"
+                >
+                  Contact Elena
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expert 3: Devon Sinclair -->
+          <div class="bg-[#F5F6F8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="h-64 overflow-hidden relative">
+              <img 
+                src="images/ab4.webp" 
+                alt="Devon Sinclair — Senior Risk Analyst" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-1">Devon Sinclair</h3>
+                <p class="font-sans text-xs font-semibold text-[#6366F1] tracking-normal mb-2.5">
+                  Senior Risk Analyst
+                </p>
+                <p class="font-sans text-xs text-slate-500 leading-relaxed">
+                  Specialized in SOC 2 readiness, framework drift modeling, and ISO 27001 automation.
+                </p>
+              </div>
+              <div class="pt-5 mt-auto">
+                <button 
+                  onclick="window.location.href='404.html'" 
+                  class="font-sans text-xs font-bold text-[#B48228] hover:text-[#9B6E1F] transition-colors text-left focus:outline-none"
+                >
+                  Contact Devon
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expert 4: Dr. Aris Thorne -->
+          <div class="bg-[#F5F6F8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="h-64 overflow-hidden relative">
+              <img 
+                src="images/ab2.webp" 
+                alt="Dr. Aris Thorne — Compliance Adviser" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+              />
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-sans font-bold text-lg text-[#153356] mb-1">Dr. Aris Thorne</h3>
+                <p class="font-sans text-xs font-semibold text-[#6366F1] tracking-normal mb-2.5">
+                  Compliance Adviser
+                </p>
+                <p class="font-sans text-xs text-slate-500 leading-relaxed">
+                  Expert in healthcare HIPAA requirements and life-sciences digital audit logging.
+                </p>
+              </div>
+              <div class="pt-5 mt-auto">
+                <button 
+                  onclick="window.location.href='404.html'" 
+                  class="font-sans text-xs font-bold text-[#B48228] hover:text-[#9B6E1F] transition-colors text-left focus:outline-none"
+                >
+                  Contact Aris
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- READY TO ENSURE COMPLIANCE? CTA BANNER -->
+    <section class="py-24 hero-purple-atmosphere relative overflow-hidden text-center">
+      <!-- Ambient Glow Behind CTA -->
+      <div class="hero-radial-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] rounded-full pointer-events-none z-0"></div>
+
+      <div data-reveal="zoom" class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-950/40 backdrop-blur-sm mb-6 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-primary-purple animate-pulse"></span>
+          <span class="font-mono text-xs text-indigo-200 tracking-wider uppercase font-medium">LIVE FREE INITIAL REVIEW</span>
+        </div>
+
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-white tracking-tight mb-5">
+          Ready to Ensure Compliance?
+        </h2>
+        <p class="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto mb-10 leading-relaxed">
+          Book a private evaluation with our managing partners to locate vulnerabilities before your next regulatory audit.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a 
+            href="404.html" 
+            data-magnetic
+            class="w-full sm:w-auto px-8 py-3.5 bg-primary-purple hover:bg-primary-purple-hover text-white text-xs font-mono uppercase tracking-wider rounded-full transition-all shadow-lg active:scale-95"
+          >
+            Schedule a Consultation
+          </a>
+          <a 
+            href="404.html" 
+            class="w-full sm:w-auto px-8 py-3.5 bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-mono uppercase tracking-wider rounded-full border border-slate-700/80 hover:border-slate-500 transition-all text-center"
+          >
+            Call Us Now
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#070913] border-t border-slate-800/80 pt-16 pb-12 text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Grid -->
+      <div data-reveal="up" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+        
+        <!-- Col 1: Brand & Bio -->
+        <div class="lg:col-span-2 space-y-4">
+          <a href="index.html" class="flex items-center group focus:outline-none">
+            <img src="logo.webp" alt="Stackly" class="h-16 sm:h-20 w-auto object-contain transition-opacity group-hover:opacity-90">
+          </a>
+          <p class="text-xs text-slate-400 leading-relaxed max-w-sm font-light">
+            Regulatory advisory for organisations operating under sustained compliance obligation. Established 2008. New York and London.
+          </p>
+          <div class="pt-2">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.67 1.67 0 0 0-1.67 1.66 1.67 1.67 0 0 0 1.67 1.67 1.67 1.67 0 0 0 1.67-1.67A1.67 1.67 0 0 0 7.83 6.6z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: SERVICES -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">SERVICES</p>
+          <ul class="space-y-2.5 text-xs text-slate-400 font-light">
+            <li><a href="404.html" class="hover:text-white transition-colors">Data Privacy & GDPR Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">SOX Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">HIPAA Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">Risk Assessment & Management</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">Compliance Audit Services</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: COMPANY -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">COMPANY</p>
+          <ul class="space-y-2.5 text-xs text-slate-400 font-light">
+            <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="services.html" class="hover:text-white transition-colors">Services</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="blogs.html" class="hover:text-white transition-colors">Blogs</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: CONTACT & NEWSLETTER -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">CONTACT</p>
+          <div class="space-y-2 text-xs text-slate-400 font-light mb-6">
+            <p class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <a href="mailto:advisory@stackly.com" class="hover:text-white transition-colors">advisory@stackly.com</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <a href="tel:+14155550182" class="hover:text-white transition-colors">+1 (415) 555-0182</a>
+            </p>
+            <p class="flex items-start gap-2 pt-1 text-slate-500">
+              <svg class="w-3.5 h-3.5 text-slate-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>MVR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
+            </p>
+          </div>
+
+          <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-2">Monthly regulatory brief</p>
+          <form id="newsletterForm" onsubmit="handleNewsletter(event)" class="space-y-2">
+            <div class="flex gap-2">
+              <input 
+                type="email" 
+                required 
+                placeholder="name@company.com" 
+                class="bg-slate-900/90 border border-slate-800 px-3 py-2 text-xs text-white rounded focus:outline-none focus:border-equator min-w-0 flex-1"
+              />
+              <button type="submit" class="px-3 py-2 bg-equator hover:bg-equator-hover text-slate-950 font-semibold text-xs rounded transition-colors whitespace-nowrap">
+                Subscribe
+              </button>
+            </div>
+            <p id="newsletterSuccess" class="hidden text-[11px] text-emerald-400 font-mono">Thank you for subscribing!</p>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-slate-800/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2026 Stackly Advisory LLC. All rights reserved.</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-2 text-center sm:text-right">
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Privacy Notice</a>
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Terms of Engagement</a>
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Cookie Preferences</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- CONSULTATION MODAL -->
+  <div id="consultModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+    <div class="relative bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 shadow-2xl text-left animate-fade-in my-auto">
+      <button onclick="closeConsultModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="mb-6">
+        <span class="font-mono text-xs text-primary-purple tracking-widest uppercase">Advisory Intake</span>
+        <h3 id="modalTitle" class="font-serif text-2xl text-white font-normal mt-1">Schedule a Consultation</h3>
+        <p class="text-xs text-slate-400 mt-1">Speak directly with a managing partner. No sales representatives.</p>
+      </div>
+
+      <!-- Modal Form -->
+      <form id="consultForm" onsubmit="handleConsultSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Your Full Name</label>
+          <input type="text" required placeholder="Jane Doe" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Work Email</label>
+          <input type="email" required placeholder="jane@enterprise.com" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Company / Organization</label>
+          <input type="text" placeholder="Acme Financial Corp" class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Primary Area of Concern</label>
+          <select class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple">
+            <option>Data Privacy & GDPR</option>
+            <option>SOX Compliance & Internal Controls</option>
+            <option>HIPAA & Healthcare Data</option>
+            <option>SOC 2 & Cloud Security Architecture</option>
+            <option>AI Governance & EU AI Act</option>
+            <option>Full Regulatory Readiness Audit</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Brief Overview / Timeline</label>
+          <textarea rows="3" placeholder="Upcoming audit deadline, regulatory notice, or cross-border expansion..." class="w-full bg-slate-950 border border-slate-800 rounded px-3.5 py-2 text-sm text-white focus:outline-none focus:border-primary-purple"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-primary-purple hover:bg-primary-purple-hover text-white text-xs font-medium uppercase tracking-wider rounded transition-all font-sans shadow">
+          Request Confidential Briefing
+        </button>
+      </form>
+
+      <!-- Modal Success Feedback -->
+      <div id="consultModalSuccess" class="hidden text-center py-8 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h4 class="font-serif text-xl text-white">Intake Received</h4>
+        <p class="text-xs text-slate-400 max-w-xs mx-auto">We review inbound mandates within 4 business hours. A partner will reach out directly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-700 text-white text-xs font-mono px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3">
+    <span class="w-2 h-2 rounded-full bg-primary-purple animate-ping"></span>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>

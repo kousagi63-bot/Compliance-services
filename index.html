@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stackly — Compliance Solutions for Regulated Enterprises</title>
+  <link rel="icon" type="image/webp" href="logo.webp" />
+  
+  <!-- Google Fonts: Fraunces, IBM Plex Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            downriver: '#070913',
+            biscay: '#153356',
+            'biscay-dark': '#0f243d',
+            equator: '#D4A348',
+            'equator-hover': '#e2b35b',
+            'albescent-white': '#F8F9FA',
+            'athens-gray': '#F1F3F5',
+            'card-dark': '#0C101D',
+            'border-dark': '#1C2538',
+            'camelot': '#7a2245',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-downriver text-slate-300 font-sans antialiased selection:bg-equator selection:text-black min-h-screen">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#070913]/90 backdrop-blur-md border-b border-slate-800/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center group focus:outline-none">
+        <img src="logo.webp" alt="Stackly" class="h-16 sm:h-20 w-auto object-contain transition-opacity group-hover:opacity-90">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#hero" class="hover:text-white transition-colors">Home</a>
+        <a href="services.html" class="hover:text-white transition-colors">Services</a>
+        <a href="about.html" class="hover:text-white transition-colors">About</a>
+        <a href="blogs.html" class="hover:text-white transition-colors">Blogs</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right Action CTAs -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="client-login.html" class="px-4 py-2 text-xs font-mono tracking-wide uppercase text-slate-300 hover:text-white rounded-full border border-slate-700/80 hover:border-slate-500 transition-all bg-slate-900/40 inline-flex items-center">
+          Login
+        </a>
+        <button onclick="openConsultationModal()" class="px-5 py-2 text-xs font-medium uppercase tracking-wider text-slate-950 bg-equator hover:bg-equator-hover rounded-full transition-all shadow-sm active:scale-95 font-sans">
+          Schedule Consultation
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="md:hidden flex items-center gap-2">
+        <button id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false" class="p-2 text-slate-400 hover:text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden md:hidden bg-[#0a0d1b] border-b border-slate-800 px-6 py-6 space-y-4 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+      <a href="#hero" class="block text-slate-300 hover:text-white font-medium py-1">Home</a>
+      <a href="services.html" class="block text-slate-300 hover:text-white font-medium py-1">Services</a>
+      <a href="about.html" class="block text-slate-300 hover:text-white font-medium py-1">About</a>
+      <a href="blogs.html" class="block text-slate-300 hover:text-white font-medium py-1">Blogs</a>
+      <a href="contact.html" class="block text-slate-300 hover:text-white font-medium py-1">Contact</a>
+      <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
+        <a href="client-login.html" class="w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 block">Login</a>
+        <button onclick="openConsultationModal()" class="w-full text-center py-2.5 text-xs font-medium uppercase tracking-wider text-slate-950 bg-equator rounded-full">Schedule Consultation</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden hero-purple-atmosphere">
+      <!-- Hero Background Image -->
+      <div class="absolute inset-0 z-0 opacity-15 mix-blend-luminosity">
+        <img src="images/home.webp" alt="Compliance solutions for regulated enterprises" class="w-full h-full object-cover" />
+      </div>
+      <!-- Ambient Glow Behind Hero (Figma Exact Color) -->
+      <div class="hero-radial-glow absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[840px] h-[480px] rounded-full pointer-events-none z-0"></div>
+      
+      <div data-hero class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-950/40 backdrop-blur-sm mb-8 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-equator animate-pulse"></span>
+          <span class="font-mono text-xs text-indigo-200 tracking-wider">Regulatory Advisory • Est. 2008</span>
+        </div>
+
+        <!-- Hero Headline (Fraunces Serif) -->
+        <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[64px] font-normal text-white tracking-tight leading-[1.12] mb-6">
+          Compliance solutions for<br class="hidden sm:inline" />
+          regulated enterprises
+        </h1>
+
+        <!-- Hero Subheading -->
+        <p class="text-base sm:text-lg md:text-xl text-slate-200 font-light max-w-3xl mx-auto leading-relaxed mb-10">
+          Regulatory expertise. Risk mitigation. Strategic compliance. Stackly builds control environments that withstand audit, examination and enterprise due diligence.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="404.html" data-magnetic class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 font-sans group">
+            <span>Schedule Consultation</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-[#0c101d]/80 hover:bg-[#141a2c] text-slate-200 border border-slate-700/80 hover:border-slate-600 font-medium text-sm transition-all text-center">
+            Explore Services
+          </a>
+        </div>
+      </div>
+
+      <!-- Trust Bar / Credentials Strip -->
+      <div class="mt-20 border-t border-slate-800/80 bg-[#060812]/90 backdrop-blur-sm py-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div data-stagger="up" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center justify-center text-center">
+            
+            <div class="flex items-center justify-center gap-2.5 text-slate-400 hover:text-slate-200 transition-colors">
+              <svg class="w-4 h-4 text-equator" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span class="font-mono text-xs uppercase tracking-wider">PCI DSS Mastery</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-2.5 text-slate-400 hover:text-slate-200 transition-colors">
+              <svg class="w-4 h-4 text-equator" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span class="font-mono text-xs uppercase tracking-wider">ISO 27001 Lead Auditors</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-2.5 text-slate-400 hover:text-slate-200 transition-colors">
+              <svg class="w-4 h-4 text-equator" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              <span class="font-mono text-xs uppercase tracking-wider">SOC 2 Practitioners</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-2.5 text-slate-400 hover:text-slate-200 transition-colors">
+              <svg class="w-4 h-4 text-equator" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              <span class="font-mono text-xs uppercase tracking-wider">IAPP Qualified Member</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHY STACKLY -->
+    <section id="why-stackly" class="py-24 bg-downriver border-b border-slate-800/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div data-reveal="up" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-equator tracking-widest uppercase mb-3">WHY STACKLY</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-normal mb-4">
+            Four reasons compliance leaders retain us
+          </h2>
+          <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
+            Our engagements are staffed by credentialed practitioners and governed by partner-level oversight from assessment through reporting.
+          </p>
+        </div>
+
+        <!-- 4 Dark Cards Grid -->
+        <div data-stagger="up" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-7 hover:border-slate-700 transition-all hover:-translate-y-1 group">
+            <img src="images/card1.webp" alt="Expertise" class="w-full h-40 object-cover rounded-lg mb-6 border border-slate-800/80" />
+            <div class="w-10 h-10 rounded-lg bg-slate-900/90 border border-slate-700/60 flex items-center justify-center text-equator mb-6 group-hover:border-equator/40 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="font-serif text-xl text-white font-medium mb-3">Expertise</h3>
+            <p class="text-slate-400 text-sm leading-relaxed font-light">
+              Advisors averaging 14 years in regulatory practice, with CIPP, CISA and CISSP credentials kept in-house.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-7 hover:border-slate-700 transition-all hover:-translate-y-1 group">
+            <img src="images/card2.webp" alt="Track Record" class="w-full h-40 object-cover rounded-lg mb-6 border border-slate-800/80" />
+            <div class="w-10 h-10 rounded-lg bg-slate-900/90 border border-slate-700/60 flex items-center justify-center text-equator mb-6 group-hover:border-equator/40 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <h3 class="font-serif text-xl text-white font-medium mb-3">Track Record</h3>
+            <p class="text-slate-400 text-sm leading-relaxed font-light">
+              1,200 engagements delivered and a 98% first-attempt certification rate across audited frameworks.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-7 hover:border-slate-700 transition-all hover:-translate-y-1 group">
+            <img src="images/card3.webp" alt="Technology" class="w-full h-40 object-cover rounded-lg mb-6 border border-slate-800/80" />
+            <div class="w-10 h-10 rounded-lg bg-slate-900/90 border border-slate-700/60 flex items-center justify-center text-equator mb-6 group-hover:border-equator/40 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+            <h3 class="font-serif text-xl text-white font-medium mb-3">Technology</h3>
+            <p class="text-slate-400 text-sm leading-relaxed font-light">
+              Control monitoring, evidence collection and reporting automated in your existing systems.
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-7 hover:border-slate-700 transition-all hover:-translate-y-1 group">
+            <img src="images/card4.webp" alt="Support" class="w-full h-40 object-cover rounded-lg mb-6 border border-slate-800/80" />
+            <div class="w-10 h-10 rounded-lg bg-slate-900/90 border border-slate-700/60 flex items-center justify-center text-equator mb-6 group-hover:border-equator/40 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            </div>
+            <h3 class="font-serif text-xl text-white font-medium mb-3">Support</h3>
+            <p class="text-slate-400 text-sm leading-relaxed font-light">
+              A dedicated engagement team, named partner oversight and 24/7 escalation during examinations.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: SERVICES (Light Section) -->
+    <section id="services" class="py-24 bg-albescent-white text-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div data-reveal="left" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-[#9B6E1F] tracking-widest uppercase mb-3">SERVICES</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#0B1528] font-normal mb-4">
+            Programmes built for sustained obligation
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+            Eight advisory practices spanning privacy, financial reporting, healthcare and enterprise governance.
+          </p>
+        </div>
+
+        <!-- 3 Light Cards -->
+        <div data-stagger="left" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+          
+          <!-- Card 1 -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <img src="images/card5.webp" alt="Data Privacy & GDPR Compliance" class="w-full h-44 object-cover rounded-xl mb-6" />
+            <div>
+              <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-3">DATA & PRIVACY</p>
+              <h3 class="font-serif text-2xl text-[#0B1528] font-medium mb-4">Data Privacy & GDPR Compliance</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light mb-8">
+                End-to-end privacy programme design covering lawful basis, data mapping and cross-border transfers. We operationalise privacy so it withstands regulatory scrutiny.
+              </p>
+            </div>
+            <div>
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <img src="images/card6.webp" alt="SOX Compliance" class="w-full h-44 object-cover rounded-xl mb-6" />
+            <div>
+              <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-3">FINANCIAL</p>
+              <h3 class="font-serif text-2xl text-[#0B1528] font-medium mb-4">SOX Compliance</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light mb-8">
+                Internal control over financial reporting designed for auditability. We scope, document and test controls alongside your finance and audit functions.
+              </p>
+            </div>
+            <div>
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <img src="images/card7.webp" alt="HIPAA Compliance" class="w-full h-44 object-cover rounded-xl mb-6" />
+            <div>
+              <p class="font-mono text-xs text-slate-500 tracking-wider uppercase mb-3">HEALTHCARE</p>
+              <h3 class="font-serif text-2xl text-[#0B1528] font-medium mb-4">HIPAA Compliance</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light mb-8">
+                Privacy, Security and Breach Notification Rule readiness for covered entities and business associates operating at clinical scale.
+              </p>
+            </div>
+            <div>
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-slate-900 hover:text-equator font-semibold transition-colors">
+                Learn More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Center CTA Button -->
+        <div class="text-center">
+          <a href="404.html" class="inline-flex items-center gap-2 px-7 py-2.5 rounded-full border border-slate-300 hover:border-slate-500 bg-white hover:bg-slate-50 text-[#0B1528] text-xs font-medium uppercase tracking-wider transition-all shadow-sm">
+            Explore All Services
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: HOW IT WORKS (Dark Section) -->
+    <section id="how-it-works" class="py-24 bg-downriver border-t border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div data-reveal="right" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-equator tracking-widest uppercase mb-3">HOW IT WORKS</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-normal mb-4">
+            A five-stage engagement model
+          </h2>
+          <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
+            Each stage produces documented output your auditors, board and regulators can rely upon.
+          </p>
+        </div>
+
+        <!-- 5 Steps Horizontal Flow -->
+        <div class="relative border-t border-slate-800/80 pt-10">
+          <div data-steps class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            
+            <!-- Step 1 -->
+            <div class="relative group">
+              <img src="images/card8.webp" alt="Assessment" class="w-full h-32 object-cover rounded-lg mb-4 border border-slate-800/80" />
+              <div class="font-mono text-xs text-equator mb-4 flex items-center gap-2">
+                <span>01</span>
+                <span class="w-2 h-0.5 bg-equator/40"></span>
+              </div>
+              <h3 class="font-serif text-xl text-white font-medium mb-3">Assessment</h3>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                Scope obligations, test current controls and quantify exposure against the applicable frameworks.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative group">
+              <img src="images/card9.webp" alt="Strategy" class="w-full h-32 object-cover rounded-lg mb-4 border border-slate-800/80" />
+              <div class="font-mono text-xs text-equator mb-4 flex items-center gap-2">
+                <span>02</span>
+                <span class="w-2 h-0.5 bg-equator/40"></span>
+              </div>
+              <h3 class="font-serif text-xl text-white font-medium mb-3">Strategy</h3>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                Agree a prioritised roadmap with owners, sequencing and a defensible target state.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative group">
+              <img src="images/card10.webp" alt="Implementation" class="w-full h-32 object-cover rounded-lg mb-4 border border-slate-800/80" />
+              <div class="font-mono text-xs text-equator mb-4 flex items-center gap-2">
+                <span>03</span>
+                <span class="w-2 h-0.5 bg-equator/40"></span>
+              </div>
+              <h3 class="font-serif text-xl text-white font-medium mb-3">Implementation</h3>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                Execute controls, documentation and workflow changes alongside your operating teams.
+              </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative group">
+              <img src="images/card11.webp" alt="Monitoring" class="w-full h-32 object-cover rounded-lg mb-4 border border-slate-800/80" />
+              <div class="font-mono text-xs text-equator mb-4 flex items-center gap-2">
+                <span>04</span>
+                <span class="w-2 h-0.5 bg-equator/40"></span>
+              </div>
+              <h3 class="font-serif text-xl text-white font-medium mb-3">Monitoring</h3>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                Operate continuous control monitoring and regulatory horizon scanning.
+              </p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="relative group">
+              <img src="images/card12.webp" alt="Reporting" class="w-full h-32 object-cover rounded-lg mb-4 border border-slate-800/80" />
+              <div class="font-mono text-xs text-equator mb-4 flex items-center gap-2">
+                <span>05</span>
+                <span class="w-2 h-0.5 bg-equator/40"></span>
+              </div>
+              <h3 class="font-serif text-xl text-white font-medium mb-3">Reporting</h3>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                Deliver board, auditor and regulator reporting with a complete evidence trail.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CLIENT PERSPECTIVE (Light Section) -->
+    <section class="py-24 bg-albescent-white text-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div data-reveal="zoom" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-[#9B6E1F] tracking-widest uppercase mb-3">CLIENT PERSPECTIVE</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#0B1528] font-normal mb-4">
+            What our clients report
+          </h2>
+        </div>
+
+        <!-- 3 Testimonial Cards -->
+        <div data-stagger="flip" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Testimonial 1 -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <!-- 5 Stars -->
+              <div class="flex items-center gap-1 text-amber-500 mb-6">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-light italic mb-8">
+                “Stackly rebuilt our control environment in a single reporting cycle. Our auditors accepted the design without a single exception.”
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&h=120&fit=crop&crop=face" alt="Margaret Ellison" class="w-10 h-10 rounded-full object-cover border border-slate-200" />
+              <div>
+                <p class="text-sm font-semibold text-slate-900">Margaret Ellison</p>
+                <p class="text-xs text-slate-500">Chief Financial Officer, Heliosync Corp</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <!-- 5 Stars -->
+              <div class="flex items-center gap-1 text-amber-500 mb-6">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-light italic mb-8">
+                “They translated the privacy regulation into engineering requirements our teams could actually implement. That distinction mattered.”
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="Arun Deshpande" class="w-10 h-10 rounded-full object-cover border border-slate-200" />
+              <div>
+                <p class="text-sm font-semibold text-slate-900">Arun Deshpande</p>
+                <p class="text-xs text-slate-500">General Counsel & Head of Risk, Northbridge Hire</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-white border border-slate-200/90 rounded-xl p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <!-- 5 Stars -->
+              <div class="flex items-center gap-1 text-amber-500 mb-6">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-light italic mb-8">
+                “Measured, precise and entirely unflappable during our regulatory examination. Exactly the posture we needed.”
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&h=120&fit=crop&crop=face" alt="Naomi Clarke" class="w-10 h-10 rounded-full object-cover border border-slate-200" />
+              <div>
+                <p class="text-sm font-semibold text-slate-900">Naomi Clarke</p>
+                <p class="text-xs text-slate-500">Head of Risk, Canvas Health</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: INSIGHTS (Dark Section) -->
+    <section id="insights" class="py-24 bg-downriver">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div data-reveal="left" class="max-w-3xl mb-16">
+          <p class="font-mono text-xs text-equator tracking-widest uppercase mb-3">INSIGHTS</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-normal mb-4">
+            Latest regulatory analysis
+          </h2>
+          <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
+            Practical guidance from the advisors delivering the work.
+          </p>
+        </div>
+
+        <!-- 3 Insight Cards -->
+        <div data-stagger="clip" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+          
+          <!-- Card 1 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-8 hover:border-slate-700 transition-all flex flex-col justify-between group">
+            <div>
+              <p class="font-mono text-xs text-equator tracking-wider uppercase mb-3">COMPLIANCE REGULATIONS</p>
+              <h3 class="font-serif text-xl sm:text-2xl text-white font-medium mb-3 group-hover:text-equator transition-colors">
+                EU AI Act: The Obligations Taking Effect This Year
+              </h3>
+              <p class="text-slate-400 text-sm leading-relaxed font-light mb-6">
+                High-risk classification, technical documentation and post-market monitoring are now operational requirements rather than policy positions. We set out what comp...
+              </p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-slate-500 mb-4">14 August 2024 • 8 min read</p>
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-white group-hover:text-equator transition-colors">
+                Read More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-8 hover:border-slate-700 transition-all flex flex-col justify-between group">
+            <div>
+              <p class="font-mono text-xs text-equator tracking-wider uppercase mb-3">BEST PRACTICES</p>
+              <h3 class="font-serif text-xl sm:text-2xl text-white font-medium mb-3 group-hover:text-equator transition-colors">
+                Scoping Discipline: Why SOX Programmes Drift
+              </h3>
+              <p class="text-slate-400 text-sm leading-relaxed font-light mb-6">
+                Control counts grow year over year while assurance quality stays flat. The cause is almost never the control environment itself; it is scoping discipline. This...
+              </p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-slate-500 mb-4">8 August 2024 • 6 min read</p>
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-white group-hover:text-equator transition-colors">
+                Read More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-8 hover:border-slate-700 transition-all flex flex-col justify-between group">
+            <div>
+              <p class="font-mono text-xs text-equator tracking-wider uppercase mb-3">INDUSTRY UPDATES</p>
+              <h3 class="font-serif text-xl sm:text-2xl text-white font-medium mb-3 group-hover:text-equator transition-colors">
+                DORA Third-Party Registers: Common Filing Errors
+              </h3>
+              <p class="text-slate-400 text-sm leading-relaxed font-light mb-6">
+                Register submissions are being returned for structural rather than substantive reasons. We review the recurring defects — inconsistent entity identifiers, incom...
+              </p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-slate-500 mb-4">22 July 2024 • 5 min read</p>
+              <a href="404.html" class="inline-flex items-center gap-1 text-xs font-mono tracking-wide text-white group-hover:text-equator transition-colors">
+                Read More <span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Center CTA Button -->
+        <div class="text-center">
+          <a href="404.html" class="inline-flex items-center gap-2 px-7 py-2.5 rounded-full border border-slate-700 hover:border-slate-500 bg-slate-900/60 hover:bg-slate-800 text-slate-200 text-xs font-medium uppercase tracking-wider transition-all">
+            View All Articles
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CALL TO ACTION BANNER (Biscay Blue) -->
+    <section class="py-20 bg-biscay relative overflow-hidden text-center text-white">
+      <!-- Subtle lighting decoration -->
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-600/10 via-transparent to-black/20 pointer-events-none"></div>
+      
+      <div data-reveal="zoom" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal mb-5 leading-tight">
+          Ready to strengthen your compliance posture?
+        </h2>
+        
+        <p class="text-blue-100/80 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 font-light">
+          Speak with a partner about your obligations, or begin with our compliance readiness guide covering the twelve controls examiners test first.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md active:scale-95">
+            Schedule a Call
+          </a>
+          
+          <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-[#0e2238] border border-blue-400/30 hover:border-blue-300/60 text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Download Compliance Guide</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="bg-[#050711] border-t border-slate-800/80 pt-16 pb-12 text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div data-reveal="up" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-slate-800/70">
+        
+        <!-- Col 1: Brand & Overview (Spans 2 cols on lg) -->
+        <div class="lg:col-span-2 space-y-6">
+          <a href="index.html" class="flex items-center group focus:outline-none">
+            <img src="logo.webp" alt="Stackly" class="h-16 sm:h-20 w-auto object-contain transition-opacity group-hover:opacity-90">
+          </a>
+          
+          <p class="text-sm text-slate-400 max-w-sm leading-relaxed font-light">
+            Regulatory advisory for organisations operating under sustained compliance obligation. Established 2008, New York and London.
+          </p>
+
+          <div>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors">
+              <svg class="w-4 h-4 text-equator" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: SERVICES -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">SERVICES</p>
+          <ul class="space-y-2.5 text-xs text-slate-400 font-light">
+            <li><a href="404.html" class="hover:text-white transition-colors">Data Privacy & GDPR Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">SOX Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">HIPAA Compliance</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">Risk Assessment & Management</a></li>
+            <li><a href="404.html" class="hover:text-white transition-colors">Compliance Audit Services</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: COMPANY -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">COMPANY</p>
+          <ul class="space-y-2.5 text-xs text-slate-400 font-light">
+            <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="services.html" class="hover:text-white transition-colors">Services</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="blogs.html" class="hover:text-white transition-colors">Blogs</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: CONTACT & NEWSLETTER -->
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold mb-4">CONTACT</p>
+          <div class="space-y-2 text-xs text-slate-400 font-light mb-6">
+            <p class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <a href="mailto:advisory@stackly.com" class="hover:text-white transition-colors">advisory@stackly.com</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <span>+1 (415) 555-0192</span>
+            </p>
+            <p class="flex items-start gap-2 pt-1 text-slate-400">
+              <svg class="w-3.5 h-3.5 text-slate-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>Midtown Complex, 120 Park Avenue, Floor 18, New York, NY 10017</span>
+            </p>
+          </div>
+
+          <!-- Newsletter -->
+          <div>
+            <p class="text-xs text-slate-300 font-medium mb-2">Monthly regulatory brief</p>
+            <form id="newsletterForm" onsubmit="handleNewsletter(event)" class="flex items-center">
+              <input type="email" required placeholder="name@company.com" class="min-w-0 flex-1 bg-[#0a0f1d] border border-slate-700/80 rounded-l-md px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-equator" />
+              <button type="submit" class="bg-equator hover:bg-equator-hover text-slate-950 font-medium text-xs px-3.5 py-2 rounded-r-md transition-colors whitespace-nowrap">
+                Subscribe
+              </button>
+            </form>
+            <p id="newsletterSuccess" class="hidden text-xs text-emerald-400 mt-1.5 font-mono">Thank you for subscribing!</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Legal Row -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2024 Stackly Advisors LLC. All rights reserved.</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-2 text-center sm:text-right">
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Privacy Notice</a>
+          <span>•</span>
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Terms of Engagement</a>
+          <span>•</span>
+          <a href="404.html" class="hover:text-slate-400 transition-colors">Cookie Preferences</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- CONSULTATION MODAL -->
+  <div id="consultModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm overflow-y-auto flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#0c101d] border border-slate-800 rounded-2xl max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 shadow-2xl relative text-left my-auto">
+      <button onclick="closeConsultModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="mb-6">
+        <p class="font-mono text-xs text-equator tracking-widest uppercase mb-1">CONNECT WITH AN ADVISOR</p>
+        <h3 id="modalTitle" class="font-serif text-2xl text-white font-medium">Schedule a Consultation</h3>
+        <p class="text-xs text-slate-400 mt-1">Discuss your obligations with a credentialed regulatory partner.</p>
+      </div>
+
+      <form id="consultForm" onsubmit="handleConsultSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Full Name</label>
+          <input type="text" required placeholder="e.g. Eleanor Vance" class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Work Email</label>
+          <input type="email" required placeholder="name@company.com" class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Primary Area of Interest</label>
+          <select class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-equator">
+            <option>Data Privacy & GDPR</option>
+            <option>SOX Compliance</option>
+            <option>HIPAA Compliance</option>
+            <option>EU AI Act & Emerging Tech</option>
+            <option>DORA & Third-Party Risk</option>
+            <option>Full Enterprise Control Environment</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Details or Timeline (Optional)</label>
+          <textarea rows="3" placeholder="Upcoming audit deadlines, regulatory notices, or scope..." class="w-full bg-[#070913] border border-slate-700/80 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-equator"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-lg bg-equator hover:bg-equator-hover text-slate-950 font-medium text-sm transition-all shadow-md mt-2">
+          Confirm Consultation Request
+        </button>
+      </form>
+      <div id="consultModalSuccess" class="hidden text-center py-8 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+        <h4 class="font-serif text-xl text-white">Consultation Requested</h4>
+        <p class="text-sm text-slate-400">A partner will contact you within 4 business hours to confirm your session.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-[#0c101d] border border-equator/40 text-slate-200 px-5 py-3.5 rounded-lg shadow-xl flex items-center gap-3 transition-all transform translate-y-4">
+    <span class="w-2 h-2 rounded-full bg-equator"></span>
+    <span id="toastMsg" class="text-xs font-mono">Notification message</span>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>

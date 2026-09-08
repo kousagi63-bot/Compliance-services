@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Stackly Compliance Advisory</title>
+  <link rel="icon" type="image/webp" href="logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            downriver: '#070913',
+            biscay: '#153356',
+            'biscay-dark': '#0f243d',
+            equator: '#D4A348',
+            'equator-hover': '#c89336',
+            'primary-purple': '#5B45F5',
+            'primary-purple-hover': '#4a36e0',
+            'albescent-white': '#F8F9FA',
+            'athens-gray': '#F5F6F8',
+            'card-dark': '#0C101D',
+            'border-dark': '#1C2538',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .dash-view { display: none; }
+  </style>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body class="h-full font-sans antialiased text-slate-300 bg-downriver selection:bg-primary-purple selection:text-white min-h-screen">
+
+  <div id="sideBackdrop" class="fixed inset-0 z-30 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" onclick="closeSidebar()"></div>
+
+  <aside id="sideMenu" class="flex flex-col fixed inset-y-0 left-0 w-64 bg-[#0a0e1c] border-r border-slate-800/80 z-40 -translate-x-full lg:translate-x-0 transition-transform duration-300">
+<div class="px-6 py-6 flex items-center justify-between">
+      <a href="index.html" class="flex items-center group focus:outline-none">
+        <img src="logo.webp" alt="Stackly" class="h-20 sm:h-24 w-auto object-contain transition-opacity group-hover:opacity-90">
+      </a>
+      <button onclick="closeSidebar()" class="lg:hidden flex items-center justify-center w-9 h-9 rounded-md border border-slate-700/80 bg-slate-900/40 text-slate-400 hover:text-white transition-colors" aria-label="Close menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+      <p class="px-2 pb-2 text-[10px] font-mono text-slate-600 uppercase tracking-widest">Management Menu</p>
+      <a href="#overview" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10"/></svg>
+        Overview
+      </a>
+      <a href="#clients" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        Clients
+        <span class="ml-auto px-1.5 py-0.5 rounded-full bg-equator/15 text-equator text-[10px] font-mono">128</span>
+      </a>
+      <a href="#engagements" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        Engagements
+      </a>
+      <a href="#approvals" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Approvals
+        <span class="ml-auto px-1.5 py-0.5 rounded-full bg-primary-purple text-white text-[10px] font-mono">4</span>
+      </a>
+      <a href="#team" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Team
+        <span class="ml-auto px-1.5 py-0.5 rounded-full bg-equator/15 text-equator text-[10px] font-mono">24</span>
+      </a>
+      <a href="#reports" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        Reports
+      </a>
+      <a href="#health" class="dash-nav flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 text-sm font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        System Health
+      </a>
+    </nav>
+
+    <div class="px-6 py-6 border-t border-slate-800/70">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif text-sm">A</div>
+        <div class="min-w-0">
+          <p class="text-sm text-white font-medium">Administrator</p>
+          <p id="sideEmail" class="text-[11px] font-mono text-slate-500 truncate">admin@stackly.com</p>
+        </div>
+      </div>
+      <div class="rounded-lg bg-slate-900/70 border border-slate-800/70 px-3 py-2.5 mb-3">
+        <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">System</p>
+        <p class="text-xs text-emerald-400 font-mono">All services operational</p>
+      </div>
+      <button onclick="handleDashboardLogout()" class="w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 hover:text-white rounded-full border border-slate-700/80 hover:border-slate-500 transition-all bg-slate-900/40">
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <div class="lg:ml-64">
+
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-downriver/80 border-b border-slate-800/70">
+      <div class="px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div class="lg:hidden flex items-center gap-3">
+          <button onclick="openSidebar()" class="flex items-center justify-center w-10 h-10 rounded-md border border-slate-700/80 bg-slate-900/40 text-slate-300 hover:text-white transition-colors" aria-label="Open menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <a href="index.html" class="flex items-center group focus:outline-none">
+            <img src="logo.webp" alt="Stackly" class="h-16 w-auto object-contain group-hover:opacity-90 transition-opacity">
+          </a>
+        </div>
+        <div class="ml-auto flex items-center gap-3">
+          <span class="sm:inline-flex hidden items-center gap-2 px-3 py-1.5 rounded-full border border-primary-purple/40 bg-primary-purple/10 text-indigo-300 text-[11px] font-mono uppercase tracking-wider">
+            Admin Session
+          </span>
+          <span id="dashEmail" class="hidden md:inline text-xs font-mono text-slate-400"></span>
+          <button onclick="handleDashboardLogout()" class="lg:hidden px-4 py-2 text-xs font-mono tracking-wide uppercase text-slate-300 hover:text-white rounded-full border border-slate-700/80 hover:border-slate-500 transition-all bg-slate-900/40">
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+
+      <section id="overview" class="dash-view relative overflow-hidden">
+        <!-- Purple Radial Atmosphere Glow -->
+        <div class="hero-radial-glow absolute -top-20 left-1/4 -translate-x-1/2 w-[720px] h-[360px] rounded-full pointer-events-none opacity-50 z-0"></div>
+        <div data-reveal="up" class="relative z-10 mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl md:text-[44px] font-normal text-white tracking-tight mb-3">
+            Oversee firm-wide compliance operations
+          </h1>
+          <p id="welcomeLine" class="text-slate-200 font-light max-w-2xl leading-relaxed">
+            Manage client engagements, review pending approvals and monitor team performance.
+          </p>
+        </div>
+
+        <div data-stagger="up" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-5 sm:p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Active Clients</p>
+            <p class="font-serif text-4xl text-white"><span data-count>128</span></p>
+          </div>
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-5 sm:p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Open Engagements</p>
+            <p class="font-serif text-4xl text-white"><span data-count>342</span></p>
+          </div>
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-5 sm:p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Overdue Tasks</p>
+            <p class="font-serif text-4xl text-equator"><span data-count>7</span></p>
+          </div>
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-5 sm:p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Team Members</p>
+            <p class="font-serif text-4xl text-white"><span data-count>24</span></p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div data-reveal="up" class="lg:col-span-2 bg-card-dark border border-slate-800/90 rounded-xl p-6 sm:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="font-serif text-xl text-white font-medium">Recent Engagements</h2>
+              <a href="#engagements" class="text-xs font-mono text-equator hover:text-equator-hover transition-colors">View all</a>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-4 pb-4 border-b border-slate-800/70">
+                <div>
+                  <p class="text-sm text-white font-medium">Northwind Logistics — Audit fieldwork</p>
+                  <p class="text-xs font-mono text-slate-500 mt-1">SOC 2 &middot; Lead: Marcus Vance</p>
+                </div>
+                <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">In progress</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 pb-4 border-b border-slate-800/70">
+                <div>
+                  <p class="text-sm text-white font-medium">Meridian Biotech — Gap remediation</p>
+                  <p class="text-xs font-mono text-slate-500 mt-1">HIPAA &middot; Lead: Dr. Aris Thorne</p>
+                </div>
+                <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">On track</span>
+              </div>
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm text-white font-medium">Atlas Financial — IC testing</p>
+                  <p class="text-xs font-mono text-slate-500 mt-1">SOX &middot; Lead: Elena Rostova</p>
+                </div>
+                <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/30">At risk</span>
+              </div>
+            </div>
+          </div>
+
+          <div data-reveal="right" class="space-y-6">
+            <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6 sm:p-8">
+              <h2 class="font-serif text-xl text-white font-medium mb-5">Admin Tools</h2>
+              <div class="space-y-3">
+                <a href="404.html" class="block w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 hover:border-slate-500 transition-all">Manage Team</a>
+                <a href="404.html" class="block w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-950 bg-primary-purple hover:bg-primary-purple-hover rounded-full transition-all">Generate Report</a>
+                <a href="404.html" class="block w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 hover:border-slate-500 transition-all">Review Approvals</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="clients" class="dash-view">
+        <div class="mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight mb-3">Clients</h1>
+          <p class="text-slate-400 font-light max-w-2xl leading-relaxed">Every organization under active management, with their frameworks and account status.</p>
+        </div>
+
+        <div class="bg-card-dark border border-slate-800/90 rounded-xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm min-w-[620px]">
+              <thead>
+                <tr class="text-[11px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-800/70">
+                  <th class="py-3.5 px-6 font-medium">Organization</th>
+                  <th class="py-3.5 px-4 font-medium">Industry</th>
+                  <th class="py-3.5 px-4 font-medium">Frameworks</th>
+                  <th class="py-3.5 px-4 font-medium">Client Since</th>
+                  <th class="py-3.5 px-4 font-medium">Status</th>
+                  <th class="py-3.5 px-6 text-right font-medium">Contact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-slate-800/60">
+                  <td class="py-3.5 px-6 text-white">Northwind Logistics</td>
+                  <td class="py-3.5 px-4 text-slate-400">Supply chain</td>
+                  <td class="py-3.5 px-4 text-slate-400">SOC 2, ISO 27001</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Mar 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Active</span></td>
+                  <td class="py-3.5 px-6 text-right">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">View</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-slate-800/60">
+                  <td class="py-3.5 px-6 text-white">Meridian Biotech</td>
+                  <td class="py-3.5 px-4 text-slate-400">Life sciences</td>
+                  <td class="py-3.5 px-4 text-slate-400">HIPAA, GDPR</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Jan 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Active</span></td>
+                  <td class="py-3.5 px-6 text-right">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">View</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-slate-800/60">
+                  <td class="py-3.5 px-6 text-white">Atlas Financial Group</td>
+                  <td class="py-3.5 px-4 text-slate-400">Financial services</td>
+                  <td class="py-3.5 px-4 text-slate-400">SOX, SOC 2</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Nov 2025</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">At risk</span></td>
+                  <td class="py-3.5 px-6 text-right">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">View</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-6 text-white">Skyline EdTech</td>
+                  <td class="py-3.5 px-4 text-slate-400">Education</td>
+                  <td class="py-3.5 px-4 text-slate-400">ISO 27001</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Aug 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Active</span></td>
+                  <td class="py-3.5 px-6 text-right">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">View</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="engagements" class="dash-view">
+        <div class="mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight mb-3">Engagements</h1>
+          <p class="text-slate-400 font-light max-w-2xl leading-relaxed">Track every engagement across the firm by stage, lead and client.</p>
+        </div>
+
+        <div class="space-y-5">
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p class="font-serif text-lg text-white">Northwind Logistics — Audit fieldwork</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">SOC 2 Type II &middot; Lead: Marcus Vance &middot; Started Apr 2026</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">In progress</span>
+            </div>
+            <div class="mt-5">
+              <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Milestones completed</span><span>6 / 8</span></div>
+              <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[75%] h-full rounded-full bg-primary-purple"></div></div>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-4">Target certification: Oct 2026</p>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p class="font-serif text-lg text-white">Meridian Biotech — Gap remediation</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">HIPAA &middot; Lead: Dr. Aris Thorne &middot; Started Feb 2026</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">On track</span>
+            </div>
+            <div class="mt-5">
+              <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Remediation items closed</span><span>41 / 52</span></div>
+              <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[79%] h-full rounded-full bg-primary-purple"></div></div>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-4">Next milestone: security risk analysis refresh &mdash; Sep 30, 2026</p>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p class="font-serif text-lg text-white">Atlas Financial — IC testing</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">SOX &middot; Lead: Elena Rostova &middot; Started Jun 2026</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/30">At risk</span>
+            </div>
+            <div class="mt-5">
+              <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Control tests executed</span><span>23 / 40</span></div>
+              <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[58%] h-full rounded-full bg-red-500"></div></div>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-4">Two evidence gaps open &mdash; escalation recommended</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="approvals" class="dash-view">
+        <div class="mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight mb-3">Approvals</h1>
+          <p class="text-slate-400 font-light max-w-2xl leading-relaxed">Approve or deny client submissions waiting on your decision.</p>
+        </div>
+
+        <div class="bg-card-dark border border-slate-800/90 rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800/70">
+            <h2 class="font-serif text-lg text-white font-medium">Clients Awaiting Approval</h2>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">4 pending</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm min-w-[580px]">
+              <thead>
+                <tr class="text-[11px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-800/70">
+                  <th class="py-3.5 px-6 font-medium">Company</th>
+                  <th class="py-3.5 px-4 font-medium">Framework</th>
+                  <th class="py-3.5 px-4 font-medium">Submitted</th>
+                  <th class="py-3.5 px-4 font-medium">Status</th>
+                  <th class="py-3.5 px-6 text-right font-medium">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-slate-800/60">
+                  <td class="py-3.5 px-6 text-white">Northwind Logistics</td>
+                  <td class="py-3.5 px-4 text-slate-400">SOC 2 Type II</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Aug 21, 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">Review</span></td>
+                  <td class="py-3.5 px-6 text-right whitespace-nowrap">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-primary-purple hover:bg-primary-purple-hover text-white text-xs transition-all mr-2">Approve</button>
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">Deny</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-slate-800/60">
+                  <td class="py-3.5 px-6 text-white">Meridian Biotech</td>
+                  <td class="py-3.5 px-4 text-slate-400">HIPAA</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Aug 19, 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">Review</span></td>
+                  <td class="py-3.5 px-6 text-right whitespace-nowrap">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-primary-purple hover:bg-primary-purple-hover text-white text-xs transition-all mr-2">Approve</button>
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">Deny</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-slate-800/60">
+                  <td class="py-3.5 px-6 text-white">Atlas Financial Group</td>
+                  <td class="py-3.5 px-4 text-slate-400">SOX</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Aug 17, 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">Review</span></td>
+                  <td class="py-3.5 px-6 text-right whitespace-nowrap">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-primary-purple hover:bg-primary-purple-hover text-white text-xs transition-all mr-2">Approve</button>
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">Deny</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-6 text-white">Skyline EdTech</td>
+                  <td class="py-3.5 px-4 text-slate-400">ISO 27001</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-500">Aug 15, 2026</td>
+                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">Review</span></td>
+                  <td class="py-3.5 px-6 text-right whitespace-nowrap">
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-primary-purple hover:bg-primary-purple-hover text-white text-xs transition-all mr-2">Approve</button>
+                    <button onclick="window.location.href='404.html'" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all">Deny</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="team" class="dash-view">
+        <div class="mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight mb-3">Team</h1>
+          <p class="text-slate-400 font-light max-w-2xl leading-relaxed">Your compliance professionals and the specializations they bring to each engagement.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-11 h-11 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif">M</div>
+              <div>
+                <p class="text-sm text-white font-medium">Marcus Vance</p>
+                <p class="text-xs font-mono text-slate-500">Principal, SOC 2 Lead</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Leads audit fieldwork, control testing and SSF evidence programs across SOC 2 engagements.</p>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Available</span>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-11 h-11 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif">A</div>
+              <div>
+                <p class="text-sm text-white font-medium">Dr. Aris Thorne</p>
+                <p class="text-xs font-mono text-slate-500">Senior Consultant, Privacy</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">HIPAA, GDPR and privacy-engineering specialist; delivers gap remediation and DPIAs.</p>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Available</span>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-11 h-11 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif">E</div>
+              <div>
+                <p class="text-sm text-white font-medium">Elena Rostova</p>
+                <p class="text-xs font-mono text-slate-500">Director, Financial Controls</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">SOX internal-control testing, ITGCs and financial reporting controls for listed clients.</p>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-equator/10 text-equator border border-equator/30">Fieldwork</span>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-11 h-11 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif">S</div>
+              <div>
+                <p class="text-sm text-white font-medium">Sofia Lindqvist</p>
+                <p class="text-xs font-mono text-slate-500">Consultant, ISMS</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">ISO 27001 implementation, risk treatment planning and internal audit coordination.</p>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Available</span>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-11 h-11 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif">D</div>
+              <div>
+                <p class="text-sm text-white font-medium">Devin Okafor</p>
+                <p class="text-xs font-mono text-slate-500">Security Engineer</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Penetration testing, cloud security posture and continuous monitoring automation.</p>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Available</span>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-11 h-11 rounded-full bg-primary-purple/20 border border-primary-purple/50 flex items-center justify-center text-indigo-200 font-serif">N</div>
+              <div>
+                <p class="text-sm text-white font-medium">Nadia Rahman</p>
+                <p class="text-xs font-mono text-slate-500">Compliance Analyst</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Evidence lifecycle management, request intake and client onboarding support.</p>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-slate-500/10 text-slate-400 border border-slate-600/40">Signed off</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="reports" class="dash-view">
+        <div class="mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight mb-3">Reports</h1>
+          <p class="text-slate-400 font-light max-w-2xl leading-relaxed">Generate operational reports for the firm and individual client programs.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Monthly Delivery Summary</p>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Utilization, milestones closed and revenue by client for the current month.</p>
+            <button onclick="window.location.href='404.html'" class="block w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 hover:border-slate-500 transition-all">Generate</button>
+          </div>
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Framework Pipeline</p>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Open engagements and certifications per framework across the firm.</p>
+            <button onclick="window.location.href='404.html'" class="block w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-950 bg-primary-purple hover:bg-primary-purple-hover rounded-full transition-all">Generate</button>
+          </div>
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-3">Overdue Task Register</p>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Every overdue or at-risk task with owner and escalation level.</p>
+            <button onclick="window.location.href='404.html'" class="block w-full text-center py-2.5 text-xs font-mono tracking-wide uppercase text-slate-300 rounded-full border border-slate-700 hover:border-slate-500 transition-all">Export</button>
+          </div>
+        </div>
+
+        <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6 sm:p-8">
+          <h2 class="font-serif text-xl text-white font-medium mb-5">Scheduled Deliverables</h2>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between gap-4 pb-4 border-b border-slate-800/70">
+              <div>
+                <p class="text-sm text-white font-medium">SOC 2 Type II audit report — Northwind Logistics</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">Due Oct 2026</p>
+              </div>
+              <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">On schedule</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 pb-4 border-b border-slate-800/70">
+              <div>
+                <p class="text-sm text-white font-medium">ISO 27001 certification package — Skyline EdTech</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">Due Nov 2026</p>
+              </div>
+              <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">On schedule</span>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="text-sm text-white font-medium">SOX interim management letter — Atlas Financial</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">Due Sep 2026</p>
+              </div>
+              <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/30">At risk</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="health" class="dash-view">
+        <div class="mb-10">
+          <p class="font-mono text-xs text-primary-purple tracking-widest uppercase mb-3">Administrator Console</p>
+          <h1 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight mb-3">System Health</h1>
+          <p class="text-slate-400 font-light max-w-2xl leading-relaxed">Live status of the services your clients depend on for their compliance programs.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-white font-medium">Evidence vault</span>
+              <span class="text-xs font-mono text-emerald-400">Operational</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Uptime | Last 90 days</span><span>99.97%</span></div>
+            <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[99.97%] h-full rounded-full bg-emerald-500"></div></div>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-white font-medium">SSO identity provider</span>
+              <span class="text-xs font-mono text-emerald-400">Operational</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Uptime | Last 90 days</span><span>99.99%</span></div>
+            <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[99.99%] h-full rounded-full bg-emerald-500"></div></div>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-white font-medium">Continuous monitoring</span>
+              <span class="text-xs font-mono text-emerald-400">Operational</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Uptime | Last 90 days</span><span>99.91%</span></div>
+            <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[99.91%] h-full rounded-full bg-emerald-500"></div></div>
+          </div>
+
+          <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-white font-medium">Reporting scheduler</span>
+              <span class="text-xs font-mono text-equator">Degraded</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mb-2"><span>Uptime | Last 90 days</span><span>98.60%</span></div>
+            <div class="h-1.5 rounded-full bg-slate-800"><div class="w-[98.6%] h-full rounded-full bg-equator"></div></div>
+          </div>
+        </div>
+
+        <div class="bg-card-dark border border-slate-800/90 rounded-xl p-6 sm:p-8">
+          <h2 class="font-serif text-xl text-white font-medium mb-5">Incidents &amp; Maintenance</h2>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-equator flex-shrink-0"></span>
+              <div>
+                <p class="text-sm text-white">Reporting scheduler slow under nightly load</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">Investigating &middot; Opened Aug 26, 2026</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
+              <div>
+                <p class="text-sm text-white">Evidence vault maintenance window completed</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">Resolved &middot; Aug 21, 2026</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-equator flex-shrink-0"></span>
+              <div>
+                <p class="text-sm text-white">Planned SSO certificate rotation</p>
+                <p class="text-xs font-mono text-slate-500 mt-1">Scheduled &middot; Sep 14, 2026, 02:00 UTC</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800/70 py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <p>&copy; 2024 Stackly Advisors LLC. All rights reserved.</p>
+        <p>Admin Dashboard &middot; Restricted access</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-700 text-white text-xs font-mono px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3">
+    <span class="w-2 h-2 rounded-full bg-equator animate-ping"></span>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function showView(name) {
+      var main = document.getElementById(name);
+      var views = document.querySelectorAll('.dash-view');
+      Array.prototype.forEach.call(views, function (v) {
+        v.style.display = v.id === name ? 'block' : 'none';
+      });
+      var ACTIVE_CLASS = ['bg-primary-purple/15', 'border', 'border-primary-purple/40', 'text-indigo-300'];
+      var links = document.querySelectorAll('.dash-nav');
+      Array.prototype.forEach.call(links, function (a) {
+        ACTIVE_CLASS.forEach(function (c) { a.classList.remove(c); });
+        if (a.getAttribute('href') === '#' + name) a.classList.add.apply(a.classList, ACTIVE_CLASS);
+      });
+      window.scrollTo(0, 0);
+    }
+
+    function openSidebar() {
+      var m = document.getElementById('sideMenu');
+      var b = document.getElementById('sideBackdrop');
+      if (m) m.classList.remove('-translate-x-full');
+      if (b) b.classList.remove('opacity-0', 'pointer-events-none');
+    }
+    function closeSidebar() {
+      var m = document.getElementById('sideMenu');
+      var b = document.getElementById('sideBackdrop');
+      if (m) m.classList.add('-translate-x-full');
+      if (b) b.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    window.addEventListener('hashchange', function () {
+      closeSidebar();
+      var name = (window.location.hash || '#overview').slice(1);
+      if (document.getElementById(name)) showView(name);
+    });
+
+    document.querySelectorAll('.dash-nav').forEach(function (link) {
+      link.addEventListener('click', function () {
+        closeSidebar();
+      });
+    });
+
+    function handleAdminAction(btn) {
+      window.location.href = '404.html';
+    }
+
+    (function () {
+      var session = getSession();
+      if (!session) {
+        window.location.href = 'client-login.html';
+        return;
+      }
+      if (session.role !== 'admin') {
+        window.location.href = 'user-dashboard.html';
+        return;
+      }
+      var emailEl = document.getElementById('dashEmail');
+      var sideEmail = document.getElementById('sideEmail');
+      var lineEl = document.getElementById('welcomeLine');
+      if (emailEl && session.email) emailEl.textContent = session.email;
+      if (sideEmail && session.email) sideEmail.textContent = session.email;
+      if (lineEl && session.email) {
+        lineEl.textContent = 'Signed in as ' + session.email + '. Manage client engagements, review pending approvals and monitor team performance.';
+      }
+      var name = (window.location.hash || '#overview').slice(1);
+      if (!document.getElementById(name)) name = 'overview';
+      showView(name);
+    })();
+  </script>
+  <script src="animations.js"></script>
+</body>
+</html>
