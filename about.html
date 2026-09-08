@@ -105,10 +105,14 @@
   <main>
     <!-- HERO SECTION (ABOUT STACKLY) -->
     <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden hero-purple-atmosphere text-center">
+      <!-- Hero Background Image -->
+      <div class="absolute inset-0 z-0 opacity-20 mix-blend-luminosity">
+        <img src="images/hero-about.jpg" alt="Stackly Executive Regulatory Governance Boardroom" class="w-full h-full object-cover" />
+      </div>
       <!-- Ambient Radial Glow (Figma Exact Color) -->
       <div class="hero-radial-glow absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[840px] h-[480px] rounded-full pointer-events-none z-0"></div>
       
-      <div data-hero class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div data-hero class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/40 backdrop-blur-sm mb-8 shadow-inner">
           <span class="w-2 h-2 rounded-full bg-primary-purple animate-pulse"></span>
           <span class="font-mono text-xs text-purple-200 tracking-wider">ABOUT STACKLY</span>
@@ -133,6 +137,52 @@
           <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#0c101d]/80 hover:bg-[#141a2c] text-slate-200 border border-slate-700/80 hover:border-slate-600 font-medium text-sm transition-all">
             View Practice Areas
           </a>
+        </div>
+
+        <!-- Hero Visual Showcase with Creative Animations -->
+        <div data-hero-visual data-hero-showcase class="hero-showcase-wrapper mt-14 sm:mt-16 px-2 sm:px-0">
+          <div class="hero-showcase-card group">
+            <!-- Aura Backlight -->
+            <div class="hero-showcase-aura"></div>
+
+            <!-- HUD Corners -->
+            <div class="hero-hud-corner hero-hud-tl"></div>
+            <div class="hero-hud-corner hero-hud-tr"></div>
+            <div class="hero-hud-corner hero-hud-bl"></div>
+            <div class="hero-hud-corner hero-hud-br"></div>
+
+            <!-- Interactive Cursor Glare -->
+            <div class="hero-card-glare"></div>
+
+            <!-- HUD Scanline -->
+            <div class="hero-hud-scanline"></div>
+
+            <!-- Main Image Frame -->
+            <div class="hero-image-frame h-[260px] sm:h-[380px] md:h-[460px] lg:h-[500px]">
+              <img src="images/hero-about.jpg" alt="Stackly Senior Partners & Executive Regulatory Boardroom" loading="eager" />
+            </div>
+
+            <!-- Floating Badges / Chips -->
+            <!-- Top-Left Floating Badge -->
+            <div class="hero-float-chip hero-float-a -top-3 sm:-top-5 -left-2 sm:-left-6">
+              <span class="hero-pulse-dot"></span>
+              <span class="text-white font-medium">Partner-Governed Practice</span>
+              <span class="text-slate-400 text-[10px] hidden sm:inline">• Direct Oversight</span>
+            </div>
+
+            <!-- Bottom-Right Floating Badge -->
+            <div class="hero-float-chip hero-float-b -bottom-3 sm:-bottom-5 -right-2 sm:-right-6">
+              <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              <span class="text-white font-medium">16+ Years Regulatory Mastery</span>
+              <span class="text-amber-400/90 text-[10px] hidden sm:inline">• Est. 2010</span>
+            </div>
+
+            <!-- Bottom-Left Floating Badge -->
+            <div class="hero-float-chip hero-float-c -bottom-8 sm:-bottom-6 left-6 sm:left-12 hidden md:inline-flex">
+              <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+              <span class="text-white font-medium">New York • London • Singapore</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -667,8 +667,123 @@
 
   initCardInteractive();
 
+  // ======================================================================
+  // HERO SHOWCASE 3D INTERACTIVE TILT & PARALLAX ENGINE
+  // ======================================================================
+  function initHeroShowcase() {
+    var showcases = document.querySelectorAll('[data-hero-showcase]');
+    if (!showcases.length) return;
+
+    var isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    showcases.forEach(function (wrapper) {
+      var card = wrapper.querySelector('.hero-showcase-card') || wrapper;
+      var chips = wrapper.querySelectorAll('.hero-float-chip');
+      var corners = wrapper.querySelectorAll('.hero-hud-corner');
+
+      // Staggered pop-in for floating chips and HUD corners
+      if (chips.length) {
+        gsap.fromTo(
+          chips,
+          { scale: 0, autoAlpha: 0, y: 16 },
+          {
+            scale: 1,
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.85,
+            delay: PRELOAD_HOLD + 0.45,
+            ease: 'back.out(1.8)',
+            stagger: 0.12,
+            clearProps: 'transform'
+          }
+        );
+      }
+
+      if (corners.length) {
+        gsap.fromTo(
+          corners,
+          { scale: 0.2, autoAlpha: 0 },
+          {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.6,
+            delay: PRELOAD_HOLD + 0.35,
+            ease: 'power2.out',
+            stagger: 0.06
+          }
+        );
+      }
+
+      if (!isDesktop) return;
+
+      card.addEventListener('mouseenter', function () {
+        card.classList.add('is-hovered');
+      });
+
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width - 0.5;
+        var py = (e.clientY - rect.top) / rect.height - 0.5;
+
+        // 3D tilt perspective
+        gsap.to(card, {
+          rotationY: px * 10,
+          rotationX: -py * 8,
+          scale: 1.015,
+          transformPerspective: 1200,
+          duration: 0.45,
+          ease: 'expo.out',
+          overwrite: 'auto'
+        });
+
+        // Cursor glare coordinates
+        card.style.setProperty('--glare-x', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--glare-y', (e.clientY - rect.top) + 'px');
+
+        // Multi-depth chip parallax
+        chips.forEach(function (chip, idx) {
+          var depth = (idx % 2 === 0 ? 18 : -14);
+          gsap.to(chip, {
+            x: px * depth,
+            y: py * depth,
+            duration: 0.5,
+            ease: 'expo.out',
+            overwrite: 'auto'
+          });
+        });
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.classList.remove('is-hovered');
+        gsap.to(card, {
+          rotationX: 0,
+          rotationY: 0,
+          scale: 1,
+          duration: 0.65,
+          ease: 'expo.out',
+          overwrite: 'auto',
+          clearProps: 'transform'
+        });
+
+        chips.forEach(function (chip) {
+          gsap.to(chip, {
+            x: 0,
+            y: 0,
+            duration: 0.65,
+            ease: 'expo.out',
+            overwrite: 'auto',
+            clearProps: 'x,y'
+          });
+        });
+      });
+    });
+  }
+
+  initHeroShowcase();
+
   window.addEventListener('load', function () {
     if (window.ScrollTrigger) ScrollTrigger.refresh();
     initCardInteractive();
+    initHeroShowcase();
   });
 })();

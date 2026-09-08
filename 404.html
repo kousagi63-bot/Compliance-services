@@ -48,14 +48,52 @@
 
   <main>
     <!-- 404 HERO SECTION -->
-    <section class="relative min-h-screen flex items-center overflow-hidden hero-purple-atmosphere">
+    <section class="relative min-h-screen flex items-center py-28 overflow-hidden hero-purple-atmosphere">
+      <!-- Background Ambient Image -->
+      <div class="absolute inset-0 z-0 opacity-15 mix-blend-luminosity">
+        <img src="images/hero-404.jpg" alt="Compliance Perimeter Scanner Alert" class="w-full h-full object-cover" />
+      </div>
       <div class="hero-radial-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[840px] h-[480px] rounded-full pointer-events-none z-0"></div>
 
-      <div data-hero class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <p class="font-mono text-xs text-equator tracking-widest uppercase mb-6">Error 404 • Page Not Found</p>
-        <p data-hero-skip data-404 class="font-serif text-7xl sm:text-[140px] md:text-[200px] leading-none text-white font-normal tracking-tight">
-          404
-        </p>
+      <div data-hero class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="font-mono text-xs text-equator tracking-widest uppercase mb-4">Error 404 • Page Not Found</p>
+        
+        <!-- Hero Visual Showcase Scanner -->
+        <div data-hero-visual data-hero-showcase class="hero-showcase-wrapper max-w-md mx-auto my-8 px-4">
+          <div class="hero-showcase-card group">
+            <!-- Aura Backlight -->
+            <div class="hero-showcase-aura"></div>
+
+            <!-- HUD Corners -->
+            <div class="hero-hud-corner hero-hud-tl"></div>
+            <div class="hero-hud-corner hero-hud-tr"></div>
+            <div class="hero-hud-corner hero-hud-bl"></div>
+            <div class="hero-hud-corner hero-hud-br"></div>
+
+            <!-- Interactive Cursor Glare -->
+            <div class="hero-card-glare"></div>
+
+            <!-- HUD Scanline -->
+            <div class="hero-hud-scanline"></div>
+
+            <!-- Image Frame -->
+            <div class="hero-image-frame h-[260px] sm:h-[320px]">
+              <img src="images/hero-404.jpg" alt="Out-of-Scope Compliance Perimeter Scanner" class="w-full h-full object-cover" loading="eager" />
+            </div>
+
+            <!-- Floating Badges / Chips -->
+            <div class="hero-float-chip hero-float-a -top-3 -left-3 sm:-left-6">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+              <span class="text-rose-300 font-medium">Perimeter Out-of-Scope</span>
+            </div>
+
+            <div class="hero-float-chip hero-float-b -bottom-3 -right-3 sm:-right-6">
+              <span class="hero-pulse-dot"></span>
+              <span class="text-white font-medium">Auto-Recovery Online</span>
+            </div>
+          </div>
+        </div>
+
         <h1 class="font-serif text-2xl sm:text-4xl md:text-5xl text-white font-normal leading-tight mb-5">
           This page appears to be out of compliance
         </h1>

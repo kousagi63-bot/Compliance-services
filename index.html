@@ -102,13 +102,13 @@
     <!-- HERO SECTION -->
     <section id="hero" class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden hero-purple-atmosphere">
       <!-- Hero Background Image -->
-      <div class="absolute inset-0 z-0 opacity-15 mix-blend-luminosity">
-        <img src="images/home.webp" alt="Compliance solutions for regulated enterprises" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 z-0 opacity-20 mix-blend-luminosity">
+        <img src="images/hero-home.jpg" alt="Compliance solutions for regulated enterprises" class="w-full h-full object-cover" />
       </div>
       <!-- Ambient Glow Behind Hero (Figma Exact Color) -->
       <div class="hero-radial-glow absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[840px] h-[480px] rounded-full pointer-events-none z-0"></div>
       
-      <div data-hero class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div data-hero class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <!-- Pill Badge -->
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-950/40 backdrop-blur-sm mb-8 shadow-inner">
           <span class="w-2 h-2 rounded-full bg-equator animate-pulse"></span>
@@ -135,6 +135,52 @@
           <a href="404.html" class="w-full sm:w-auto px-7 py-3.5 rounded-md bg-[#0c101d]/80 hover:bg-[#141a2c] text-slate-200 border border-slate-700/80 hover:border-slate-600 font-medium text-sm transition-all text-center">
             Explore Services
           </a>
+        </div>
+
+        <!-- Hero Visual Showcase with Creative Animations -->
+        <div data-hero-visual data-hero-showcase class="hero-showcase-wrapper mt-14 sm:mt-16 px-2 sm:px-0">
+          <div class="hero-showcase-card group">
+            <!-- Aura Backlight -->
+            <div class="hero-showcase-aura"></div>
+
+            <!-- HUD Corners -->
+            <div class="hero-hud-corner hero-hud-tl"></div>
+            <div class="hero-hud-corner hero-hud-tr"></div>
+            <div class="hero-hud-corner hero-hud-bl"></div>
+            <div class="hero-hud-corner hero-hud-br"></div>
+
+            <!-- Interactive Cursor Glare -->
+            <div class="hero-card-glare"></div>
+
+            <!-- HUD Scanline -->
+            <div class="hero-hud-scanline"></div>
+
+            <!-- Main Image -->
+            <div class="hero-image-frame h-[260px] sm:h-[380px] md:h-[460px] lg:h-[500px]">
+              <img src="images/hero-home.jpg" alt="Stackly Enterprise Compliance & Security Operations Center" loading="eager" />
+            </div>
+
+            <!-- Floating Badges / Chips -->
+            <!-- Top-Left Floating Badge -->
+            <div class="hero-float-chip hero-float-a -top-3 sm:-top-5 -left-2 sm:-left-6">
+              <span class="hero-pulse-dot"></span>
+              <span class="text-white font-medium">SOC 2 Type II Audited</span>
+              <span class="text-slate-400 text-[10px] hidden sm:inline">• Live Posture</span>
+            </div>
+
+            <!-- Bottom-Right Floating Badge -->
+            <div class="hero-float-chip hero-float-b -bottom-3 sm:-bottom-5 -right-2 sm:-right-6">
+              <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span class="text-white font-medium">100% Audit Readiness</span>
+              <span class="text-amber-400/90 text-[10px] hidden sm:inline">• 24/7 Telemetry</span>
+            </div>
+
+            <!-- Bottom-Left Floating Badge -->
+            <div class="hero-float-chip hero-float-c -bottom-8 sm:-bottom-6 left-6 sm:left-12 hidden md:inline-flex">
+              <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              <span class="text-white font-medium">450+ Enterprise Audits Passed</span>
+            </div>
+          </div>
         </div>
       </div>
 
